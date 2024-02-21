@@ -99,7 +99,7 @@ class VoyageController extends Controller
             $voyages = $voyages->whereIn('course_id',$courses_id);
         }
 
-        $voyages = $voyages->get();
+        $voyages = $voyages->paginate();
         //dd($voyages);
         
         return view('voyage.index',[

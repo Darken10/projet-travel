@@ -22,10 +22,10 @@ class SearchFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'compagnie'=>['nullable','string','min:2','max:100'],
-            'depart'=>['nullable','string','min:2','max:100'],
-            'destination'=>['nullable','string','min:2','max:100'],
-            'heure'=>['nullable','string','min:2','max:100'],
+            'compagnie'=>['nullable','string','max:100'],
+            'depart'=>['nullable','string','max:100'],
+            'destination'=>['nullable','string','max:100'],
+            'heure'=>['nullable','string','max:100'],
         ];
     }
 }

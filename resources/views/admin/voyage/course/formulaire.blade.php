@@ -1,4 +1,8 @@
 <x-admin.layout>
+
+    <link rel="stylesheet" href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}">
+
+
     <div class="jumbotron">
         <h1 class="display-3">{{$course->exists ? 'Modifier Une Course' : 'Créer Une Course'}}</h1>
     </div>
@@ -45,6 +49,15 @@
             <button type="submit" class="btn btn-primary">{{ $course->exists ? 'Modifier Une Course' : 'Créer Une Course' }}</button>
         </div>
     </form>
+
+
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('node_modules/select2/dist/js/select2.min.js') }}"></script>
+    <script>
+        $(function (){
+            $('.select2').select2()
+        })
+    </script>
 
 
 

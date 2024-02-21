@@ -20,6 +20,12 @@ class Ticket extends Model
         'statut_id',
     ];
 
+    protected $with = [
+        'voyage',
+        'user',
+        'statut',
+    ];
+
     function voyage():BelongsTo{
         return $this->belongsTo(Voyage::class);
     }

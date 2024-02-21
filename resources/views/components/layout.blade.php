@@ -36,7 +36,6 @@
             <!-- fin flash info -->
 
             <main class="mt-24" >
-                <x-test.test  />
 
                 {{ $slot }}
             </main>

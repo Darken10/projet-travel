@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Admin\Voyage\LigneController;
 use App\Http\Controllers\Admin\Voyage\CourseController;
+use App\Http\Controllers\Admin\Voyage\AdminVoyageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::prefix('/admin')->middleware(['auth','role:admin'])->name('admin.')->grou
     Route::prefix('/voyage')->name('voyage.')->group(function(){
         Route::resource('ligne', LigneController::class)->except(['show'])->middleware('auth');
         Route::resource('course', CourseController::class)->except(['show'])->middleware('auth');
+        Route::resource('voyage', AdminVoyageController::class)->except(['show'])->middleware('auth');
     });
     
     // la liste des user qui on liker le post

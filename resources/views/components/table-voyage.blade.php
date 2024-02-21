@@ -55,7 +55,7 @@
                                 <div class="text-center">{{ $voyage->heureDepart() }}</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
-                                <div class="text-center">0 f cfa</div>
+                                <div class="text-center">{{ $voyage->prix }}f cfa</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div class="text-center font-medium text-green-500">
