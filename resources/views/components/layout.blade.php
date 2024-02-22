@@ -7,10 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
+        <!-- Fonts 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+-->
 
 
         <!-- Scripts -->
@@ -24,19 +24,16 @@
             <!-- Page Content -->
             <!-- flash info -->
             @if (session('success'))
-                        
-                        <x-alert-success>{{ session('success') }}</x-alert-success>
+                    <x-alert type="success"> {{ session('success') }}</x-alert>
                 @else
                     @if (session('error'))
-                    
-                        <x-alert-error>{{ session('error') }}</x-alert-error>
-                        
+                        <x-alert type="error"> {{ session('error') }}</x-alert>
                     @endif
                 @endif
             <!-- fin flash info -->
 
             <main class="mt-24" >
-
+{{-- <x-shared.chat-bulle/> --}}
                 {{ $slot }}
             </main>
 

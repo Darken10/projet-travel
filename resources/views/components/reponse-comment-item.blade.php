@@ -2,17 +2,17 @@
 
 
 <!-- reponses content -->
-<div class="pt-6 " style="position: left">
+<div class="pt-6 flex justify-end max-w-3xl ">
     <!-- Reponse row -->
     <div class="media flex pb-4 justify-between">
        
-        <div class="media-body md:ml-48 w-full rounded-xl bg-zinc-200 mr-4 pt-3">
+        <div class="media-body md:ml-48 w-full rounded-xl rounded-tr-none bg-zinc-300 mr-4 pt-3">
             <div class="text-end">
                 <a class="inline-block text-base font-bold mr-2" href="#">{{ $reponse->user->name }}</a>
             </div>
 
             <div class="   mx-3 p-3 rounded-2xl w-auto flex-row">
-                <p class="flex justify-end">{!! nl2br(e( $reponse->reponse )) !!}</p>
+                <p class="flex justify-end text-sm">{!! nl2br(e( $reponse->reponse )) !!}</p>
                 <div class="mt-4 flex justify-end items-center ">
                     <span class=" left text-slate-500 dark:text-slate-300">{{ $reponse->created_at->format('D d M Y H:i:s') }}</span>
 
