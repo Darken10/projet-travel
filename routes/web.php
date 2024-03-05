@@ -11,12 +11,14 @@ use App\Http\Controllers\Root\PaysController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Root\VilleController;
 use App\Http\Controllers\Root\RegionController;
+use App\Http\Controllers\Chat\MessageController;
 use App\Http\Controllers\Root\ProvinceController;
 use App\Http\Controllers\Admin\AdminTagController;
 use App\Http\Controllers\Root\CompagnieController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Admin\Voyage\LigneController;
+use App\Http\Controllers\Admin\Voyage\CheminController;
 use App\Http\Controllers\Admin\Voyage\CourseController;
 use App\Http\Controllers\Admin\Voyage\AdminVoyageController;
 
@@ -36,7 +38,7 @@ use App\Http\Controllers\Admin\Voyage\AdminVoyageController;
 Route::prefix('/root')->middleware(['auth','role:root'])->name('root.')->group(function () {
     // Compagnie
     Route::resource('/compagnie', CompagnieController::class)->except(['show'])->middleware('auth');
-    
+
     //Ville
     Route::resource('/ville', VilleController::class)->except(['show'])->middleware('auth');
     Route::resource('/pays', PaysController::class)->except(['show'])->middleware('auth');
@@ -55,11 +57,12 @@ Route::prefix('/admin')->middleware(['auth','role:admin'])->name('admin.')->grou
 
     // la gestion des voyage notament (lignes;voyages,les coures)
     Route::prefix('/voyage')->name('voyage.')->group(function(){
-        Route::resource('ligne', LigneController::class)->except(['show'])->middleware('auth');
-        Route::resource('course', CourseController::class)->except(['show'])->middleware('auth');
-        Route::resource('voyage', AdminVoyageController::class)->except(['show'])->middleware('auth');
+        Route::resource('ligne', LigneController::class)->except(['show']);
+        Route::resource('course', CourseController::class)->except(['show']);
+        Route::resource('voyage', AdminVoyageController::class)->except(['show']);
+        Route::resource('chemin', CheminController::class)->except(['show']);
     });
-    
+
     // la liste des user qui on liker le post
     Route::get('/{post}/like/list',[AdminPostController::class,'likeListPost'])->name('likeListPost')->where([
         'post'=>'[0-9]+',
@@ -90,8 +93,8 @@ Route::prefix('/admin')->middleware(['auth','role:admin'])->name('admin.')->grou
 //Post
 Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController::class)->group(function () {
     Route::get('/','index')->name('index');
-    
-    
+
+
     Route::get('/{post}','show')->name('show')->where([
         'post'=>'[0-9]+',
     ])->middleware('auth');
@@ -120,7 +123,7 @@ Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController
     Route::post('/{comment}/reponse','storeReponse')->name('storeReponse')->where([
         'comment'=>'[0-9]+',
     ])->middleware('auth');
-    
+
     Route::get('/{comment}/comment/like','storeLikeComment')->name('storeLikeComment')->where([
         'comment'=>'[0-9]+',
     ])->middleware('auth');
@@ -135,7 +138,7 @@ Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController
 Route::prefix('/voyage')->name('voyage.')->controller(VoyageController::class)->middleware('auth')->group(function(){
     Route::get('/','index')->name('index');
     Route::post('/','search');
-    
+
     Route::get('/{voyage}','show')->name('show')->where([
         'voyage'=>'[0-9]+',
     ]);
@@ -146,7 +149,7 @@ Route::prefix('/voyage')->name('voyage.')->controller(VoyageController::class)->
 });
 
 Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->middleware('auth')->group(function(){
-    
+
     Route::get('/mes-tickets','mesTickets')->name('mes-tickets');
     Route::get('/mes-tickets/{ticket}','show')->name('show')->where([
         'ticket'=>'[0-9]+',
@@ -158,6 +161,20 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
 
 
 });
+
+
+
+/** Chat (Conversation) */
+Route::prefix('/conversations')->name('chat.')->controller(MessageController::class)->middleware('auth')->group(function (){
+    Route::get('/','index')->name('index');
+    Route::get('/{user}','show')->name('show')->middleware('can:talkTo,user')->where([
+        'user'=>'[0-9]+',
+    ]);
+    Route::post('/{user}','store')->name('store')->middleware('can:talkTo,user')->where([
+        'user'=>'[0-9]+',
+    ]);
+});
+
 
 
 

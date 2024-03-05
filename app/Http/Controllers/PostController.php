@@ -7,24 +7,19 @@ use App\Models\Post\Tag;
 use App\Models\Post\Like;
 use App\Models\Post\Comment;
 use App\Models\Post\Reponse;
-use Illuminate\Http\Request;
 use App\Models\Post\LikeComment;
 use App\Models\Post\LikeReponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Post\ReponseFromRequest;
 use App\Http\Requests\Admin\Post\CommentFormRequest;
-use App\Models\Root\Ville;
-use App\Models\Voyage\Ligne;
 
 class PostController extends Controller
 {
     function index()
     {
-        //dd(Ligne::find(1)->depart,Ligne::find(1)->destination);
 
         
         $posts = Post::latest()->paginate(12);
-        //dd(Auth::user()->can('view',Post::find(10)));
         return view('post.index', [
             'posts' => $posts
         ]);
