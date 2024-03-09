@@ -6,7 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "chillerlan/php-qrcode": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel-lang/lang": "^12.17",
         "laravel/breeze": "^1.27",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -16,6 +19,7 @@
         "barryvdh/laravel-debugbar": "^3.9",
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
+        "laravel-lang/common": "^3.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",

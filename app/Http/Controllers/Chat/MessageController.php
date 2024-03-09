@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Chat;
 
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Compagnie;
 use App\Models\Chat\Message;
 use Illuminate\Http\Request;
+use chillerlan\QRCode\QRCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\Chat\MessageFormRequest;
-use App\Models\Compagnie;
 use App\Notifications\MessageRecivedNotification;
 
 class MessageController extends Controller

@@ -41,6 +41,12 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+
+/** Ajout des configuration pour le DOMPDF */
+
+//$app->register(ServiceProvider::class);
+//$app->configure('dompdf');
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
