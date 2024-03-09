@@ -167,11 +167,18 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
 /** Chat (Conversation) */
 Route::prefix('/conversations')->name('chat.')->controller(MessageController::class)->middleware('auth')->group(function (){
     Route::get('/','index')->name('index');
-    Route::get('/{user}','show')->name('show')->middleware('can:talkTo,user')->where([
+    Route::get('/user/{user}','show')->name('show')->middleware('can:talkTo,user')->where([
         'user'=>'[0-9]+',
     ]);
-    Route::post('/{user}','store')->name('store')->middleware('can:talkTo,user')->where([
+    Route::post('/user/{user}','store')->name('store')->middleware('can:talkTo,user')->where([
         'user'=>'[0-9]+',
+    ]);
+
+    Route::get('/compagnie/{compagnie}','compagnieShow')->name('compagnieShow')->where([
+        'compagnie'=>'[0-9]+',
+    ]);
+    Route::post('/compagnie/{compagnie}','compagnieStore')->where([
+        'compagnie'=>'[0-9]+',
     ]);
 });
 

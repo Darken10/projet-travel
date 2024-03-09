@@ -28,11 +28,12 @@ class Compagnie extends Model
 
     /*function patron():BelongsTo{
         return $this->belongsTo(User::class,'patron_id');
-    }*/
-
+    }
+*/
     function admins():HasMany{
         return $this->hasMany(User::class);
     }
+    
 
     function voyages():HasMany{
         return $this->hasMany(Voyage::class);
