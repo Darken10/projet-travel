@@ -159,6 +159,14 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
         'ticket'=>'[0-9]+',
     ]);
 
+    Route::get('/mes-tickets/payer/{ticket}','payerForm')->name('payerForm')->where([
+        'ticket'=>'[0-9]+',
+    ]);
+
+    Route::post('/mes-tickets/payer/{ticket}','payer')->name('payer')->where([
+        'ticket'=>'[0-9]+',
+    ]);
+
 
 });
 

@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Root\Ville;
 use App\Models\User;
+use App\Models\Ticket\Payer;
 use App\Models\Voyage\Voyage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,23 +50,27 @@ class Ticket extends Model
     }
 
 
-    function depart(){
-        return $this->voyage->depart();
+    function depart():Ville|null{
+        return $this->voyage?->depart();
     }
 
-    function destination(){
-        return $this->voyage->destination();
+    function destination():Ville|null{
+        return $this->voyage?->destination();
     }
 
-    function distance(){
-        return $this->voyage->course->ligne->distance ?? '0';
+    function distance():int{
+        return $this->voyage?->course?->ligne?->distance ?? 0;
     }
 
-    function prix(){
-        return $this->voyage->prix ?? '0';
+    function prix():int{
+        return $this->voyage->prix ?? 0;
     }
 
     function compagnie(){
-        return $this->voyage->compagnie;
+        return $this->voyage?->compagnie;
+    }
+
+    function payers():HasMany{
+        return $this->hasMany(Payer::class);
     }
 }

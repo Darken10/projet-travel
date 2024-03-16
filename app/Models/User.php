@@ -10,6 +10,7 @@ use App\Models\Post\Like;
 use App\Models\Post\Reponse;
 use App\Models\Post\LikeComment;
 use App\Models\Post\LikeReponse;
+use App\Models\Ticket\Payer;
 use App\Models\Voyage\Course;
 use App\Models\Voyage\Ligne;
 use App\Models\Voyage\Voyage;
@@ -105,5 +106,9 @@ class User extends Authenticatable
 
     function tickets():HasMany{
         return $this->hasMany(Ticket::class);
+    }
+
+    function payers():HasMany{
+        return $this->hasMany(Payer::class);
     }
 }

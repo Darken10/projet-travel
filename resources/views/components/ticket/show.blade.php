@@ -62,7 +62,7 @@
 
 
     
-        <form action="#" method="post">
+        <form  method="post">
             <div class="flex  justify-end  ">
                 <x-checkbox name="condition" />
                 <a href="#" class="text-blue-500">J'accepte les conditions</a>

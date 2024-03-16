@@ -6,7 +6,18 @@
                 Pour payer le ticket de N° <span class="font-semibold">{{ $ticket->numero }}</span> du voyage  <span class=" font-semibold ">{{ $ticket->depart()->name }} - {{ $ticket->destination()->name }}</span> ({{ $ticket->heureDepart() }}) 
                 au prix de <span>{{ $ticket->prix() }} F CFA</span> a la compagnie <span class="font-semibold">{{ $ticket->compagnie()->sigle }}</span>
                 <br>
-                choisicez votre moyen de payment
+                
+
+                <form method="post" class="mt-4">
+                    @csrf
+                    <x-input label="Numero" name="numero" type="tel" />
+                    <x-input label="Code OTP" name="otp" type="tel" />
+                    <x-btn-primary type="submit" class="mt-4">Payer</x-btn-primary>
+
+                </form>
+                
+                
+                
             </div>
         </div>
     </div>
