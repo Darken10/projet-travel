@@ -5,9 +5,9 @@
 @endphp
 
 <!-- Table -->
-<div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 py-4">
-    <header class="px-5 py-4 border-b border-gray-100">
-        <h2 class="font-semibold text-gray-800 capitalize flex justify-between">{{ $voyage->depart()->name.' - '.$voyage->destination()->name }}  <span class=" text-2xl">{{ $voyage->heureDepart() }}</span> </h2>
+<div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 pb-4 ">
+    <header class="px-5 py-4 border-b border-gray-100 rounded-t-md bg-emerald-500 ">
+        <h2 class="font-semibold text-gray-100 capitalize flex justify-between">{{ $voyage->depart()->name.' - '.$voyage->destination()->name }}  <span class=" text-2xl">{{ $voyage->heureDepart() }}</span> </h2>
     </header>
 
     @if (! $ticket->isEmpty())
@@ -27,6 +27,9 @@
                         </th>
                         <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-left">Statut</div>
+                        </th>
+                        <th class="p-2 whitespace-nowrap">
+                            <div class="font-semibold text-left">Actions</div>
                         </th>
                         
                         
@@ -50,6 +53,11 @@
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div class="text-left font-medium text-green-500">{{ $tk->statut->name }}</div>
+                            </td>
+
+                            <td class="p-2 whitespace-nowrap">
+
+                                <x-shared.admin-ticket-btn :ticket="$tk" />
                             </td>
                             
                         </tr>

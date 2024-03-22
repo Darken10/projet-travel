@@ -4,7 +4,7 @@
 <!-- Table -->
 <div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 py-4">
     <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-        <h2 class="font-semibold text-gray-800 capitalize flex justify-between items-center">Les Publiciter</span> </h2>
+        <h2 class="font-semibold sm:text-xl md:text-4xl text-gray-800 capitalize flex justify-between items-center">Les Publicites</span> </h2>
         <a href="{{ route('admin.post.create') }}" class=" bg-green-500 text-white font-semibold mx-2  px-2  flex no-underline text-center rounded-lg">
             <span class=" flex text-white text-5xl pl-2">+</span>
             <span class=" flex justify-center align-middle content-center items-center ml-1 pr-2">Ajouter</span>
@@ -12,7 +12,7 @@
     </header>
 
     @if (! $posts->isEmpty())
-    <div class="p-3">
+    <div class="p-3 m-auto">
         <div class="overflow-x-auto">
             <table class="table-auto w-full">
                 <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -203,7 +203,7 @@
                             Nombres :
                         </td>
                         <td class="py-2">
-                            <span class=" font-semibold">{{ count($posts) }}</span> Passagers
+                            <span class=" font-semibold">{{ count($posts) }}</span> Publications
                         </td>
                     </tr>
                     <tr >
@@ -212,7 +212,7 @@
                         </td>
                         <td class="py-2">
                             <div class="flex">
-                                <span class="font-semibold mr-2 ">{{ count($post->likes) }}</span>
+                                <span class="font-semibold mr-2 ">{{ $nbLikes ?? 0 }}</span>
                                 <svg class="fill-rose-600 dark:fill-rose-400" style="width: 22px; height: 22px;" viewBox="0 0 24 24">
                                     <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
                                 </svg>
@@ -226,7 +226,7 @@
                         </td>
                         <td class="py-2">
                             <div class="flex"> 
-                                <span class=" font-semibold mr-2">{{ count($post->comments) }}</span>
+                                <span class=" font-semibold mr-2">{{ $nbComments ?? 0 }}</span>
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                             </div>
                         </td>

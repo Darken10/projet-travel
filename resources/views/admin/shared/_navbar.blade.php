@@ -1,6 +1,7 @@
 
+@include('shared._sidbareDrawe')
 
-<div>
+{{--<div>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   
   <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
@@ -180,9 +181,8 @@
                   </div>
               </div>
           </header>
-          <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+--}}          <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
               <div class="container px-6 py-8 mx-auto">
-                  <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
   
                   {{--<div class="mt-4">
                       <div class="flex flex-wrap -mx-6">

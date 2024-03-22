@@ -16,31 +16,24 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <link rel="stylesheet" href='{{ asset('bootstrap-5/css/bootstrap.min.css') }}'>
+{{-- <linkrel="stylesheet"href='asset('bootstrap-5/css/bootstrap.min.css') '>--}}
     </head>
     <body class="font-sans antialiased h-full">
+        
         @include('admin.shared._navbar') 
 
         <div class="mt-6 container  ">
             <!-- Page Content -->
             <!-- flash info -->
             @if (session('success'))
-                    <div class="alert alert-success alert-dismissible  fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                    <x-alert type="success">{{ session('success') }}</x-alert>
                 @else
                     @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                            <x-alert type="error"> {{ session('error') }}</x-alert>
                     @else 
                         @if (session('warning'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            {{ session('warning') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        <x-alert type="warning"> {{ session('warning') }} </x-alert>
+                        
                         @endif
                     @endif
                 @endif

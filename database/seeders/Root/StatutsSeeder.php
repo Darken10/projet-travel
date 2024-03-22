@@ -46,5 +46,9 @@ class StatutsSeeder extends Seeder
         Statut::create([
             'name'=> 'Reserver',
         ]);
+        Statut::create([
+            'name'=> 'Valider',
+        ]);
+        
     }
 }

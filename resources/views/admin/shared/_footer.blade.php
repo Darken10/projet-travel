@@ -3,3 +3,4 @@
 </div>
 </div>
 </div>
+@include('shared._footer')

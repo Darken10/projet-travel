@@ -27,7 +27,7 @@ class Payer extends Model
 
     protected $with = [
         'user',
-        'status',
+        'statut',
         'ticket'
     ];
 

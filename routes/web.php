@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Voyage\LigneController;
 use App\Http\Controllers\Admin\Voyage\CheminController;
 use App\Http\Controllers\Admin\Voyage\CourseController;
 use App\Http\Controllers\Admin\Voyage\AdminVoyageController;
+use App\Http\Controllers\Admin\Ticket\ValiderTicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,21 +160,34 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
         'ticket'=>'[0-9]+',
     ]);
 
-    Route::get('/mes-tickets/payer/{ticket}','payerForm')->name('payerForm')->where([
+    Route::get('/mes-tickets/payement/{ticket}','payerForm')->name('payerForm')->where([
         'ticket'=>'[0-9]+',
     ]);
 
-    Route::post('/mes-tickets/payer/{ticket}','payer')->name('payer')->where([
+    Route::post('/mes-tickets/payement/{ticket}','payer')->name('payer')->where([
         'ticket'=>'[0-9]+',
     ]);
+    
+    Route::get('/mes-ticket/payer/{payer}','payer_show')->name('payer_show')->where([
+        'payer'=>'[0-9]+',
+    ]);
+    
+});
 
 
+/** Validation d'un ticket */
+Route::prefix('/ticket-validation')->name('admin.ticket-validation.')->controller(ValiderTicketController::class)->middleware(['auth','role:admin'])->group(function(){
+    Route::post('/{ticket}/verifier','verifier')->name('verification')->where([
+        'ticket'=>'[0-9]+',
+    ]);
 });
 
 
 
+
+
 /** Chat (Conversation) */
-Route::prefix('/conversations')->name('chat.')->controller(MessageController::class)->middleware('auth')->group(function (){
+Route::prefix('/conversations')->name('chat.')->controller(MessageController::class)->middleware(['auth',])->group(function (){
     Route::get('/','index')->name('index');
     Route::get('/user/{user}','show')->name('show')->middleware('can:talkTo,user')->where([
         'user'=>'[0-9]+',

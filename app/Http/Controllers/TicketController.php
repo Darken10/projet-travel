@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
 use App\Models\Ticket\Payer;
+use chillerlan\QRCode\Output\QRGdImagePNG;
+use chillerlan\QRCode\QRCode;
+use QRimage;
 
 class TicketController extends Controller
 {
@@ -39,18 +42,25 @@ class TicketController extends Controller
 
         $payment = new Payement($data);
         $isPayer = $payment->payement();
-        
+        //dd($isPayer);
         if ($isPayer) {
             $pdfName = uniqid("pdf_{$ticket->numero}_") . '.pdf';
             $qrName = uniqid("qr_{$ticket->numero}_") . '.png';
-            $data['code'] = $payment->codeTransfert;
+            $data['code'] = $payment->getCodeTransfert();
             $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
             $data['QRUrl'] = './tickets/qr/' . $qrName;
         }
 
         $payer = Payer::create($data);
-        if($payer){
-            
+        if(!$payer){
+            throw new Exception("Une erreur inconnu arriver lors du payment");
+        }
+        else{
+            $ticket->statut_id = 5;
+            $ticket->save();
+            return to_route('ticket.payer_show',[
+                'payer'=>$payer,
+            ]);
         }
     }
 
@@ -71,6 +81,19 @@ class TicketController extends Controller
             'ticket' => $ticket
         ]);
     }
+
+
+    function payer_show(Payer $payer){
+
+        $Qr = new QRCode();
+        
+        $QRCode = $Qr->render('bonjours');
+        return view('ticket.payer_show',[
+            'payer'=>$payer,
+            'QRCode'=>$QRCode,
+        ]);
+    }
+
 }
 
 
@@ -92,12 +115,16 @@ class Payement
     function __construct(array $credential)
     {
         ['numero' => $this->numero, 'otp' => $this->otp, 'prix' => $this->prix] = $credential;
-        $this->codeTransfert = uniqid('OM');
+        $this->codeTransfert = uniqid('OM-');
     }
 
     function payement(): bool
     {
         return $this->numero == static::$NUMERO && $this->otp == static::$OTP;
+    }
+
+    function getCodeTransfert():string{
+        return $this->codeTransfert; 
     }
 }
 

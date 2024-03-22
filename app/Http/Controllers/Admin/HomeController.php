@@ -19,8 +19,7 @@ class HomeController extends Controller
         $a = [];
 
         foreach($voyages as $voyage){
-            $b= $voyage->id;
-            $a[$voyage->id] = Ticket::where('voyage_id',$b)->get() ; 
+            $a[$voyage->id] = Ticket::where('voyage_id',$voyage->id)->where('statut_id','5')->get() ; 
         }
        // dd($a);
         return view('admin.dashbord',[
