@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Admin\Ticket\ModifierStatutsInfo;
 use App\Models\Compagnie;
 use App\Models\Post\Comment;
 use App\Models\Post\Like;
@@ -111,4 +112,10 @@ class User extends Authenticatable
     function payers():HasMany{
         return $this->hasMany(Payer::class);
     }
+
+    function userModifierStatutsInfo():HasMany{
+        return $this->hasMany(ModifierStatutsInfo::class);
+    }
+
+    
 }

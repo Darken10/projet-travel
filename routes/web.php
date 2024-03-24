@@ -180,6 +180,9 @@ Route::prefix('/ticket-validation')->name('admin.ticket-validation.')->controlle
     Route::post('/{ticket}/verifier','verifier')->name('verification')->where([
         'ticket'=>'[0-9]+',
     ]);
+    Route::post('/{ticket}/suspendre','suspendre')->name('suspendre')->where([
+        'ticket'=>'[0-9]+',
+    ]);
 });
 
 

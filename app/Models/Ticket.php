@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Root\Ville;
 use App\Models\User;
+use App\Models\Root\Ville;
 use App\Models\Ticket\Payer;
 use App\Models\Voyage\Voyage;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Ticket\ModifierStatutsInfo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -72,5 +73,9 @@ class Ticket extends Model
 
     function payers():HasMany{
         return $this->hasMany(Payer::class);
+    }
+
+    function modifierStatutsInfos():HasMany{
+        return $this->hasMany(ModifierStatutsInfo::class);
     }
 }

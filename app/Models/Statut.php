@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Voyage\Voyage;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Ticket\ModifierStatutsInfo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Statut extends Model
 {
@@ -17,5 +18,13 @@ class Statut extends Model
 
     function ticket():HasMany{
         return $this->hasMany(Ticket::class);
+    }
+
+    function statutInitialeModifierStatutsInfos():HasMany{
+        return $this->hasMany(ModifierStatutsInfo::class,'statut_initiale_id');
+    }
+
+    function statutFinaleModifierStatutsInfos():HasMany{
+        return $this->hasMany(ModifierStatutsInfo::class,'statut_finale_id');
     }
 }
