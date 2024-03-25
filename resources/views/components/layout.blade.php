@@ -22,17 +22,18 @@
 
         <div class=" container px-6">
             <!-- Page Content -->
-            <!-- flash info -->
-            @if (session('success'))
+            
+
+            <main class="mt-24" >
+                <!-- flash info -->
+                @if (session('success'))
                     <x-alert type="success"> {{ session('success') }}</x-alert>
                 @else
                     @if (session('error'))
                         <x-alert type="error"> {{ session('error') }}</x-alert>
                     @endif
                 @endif
-            <!-- fin flash info -->
-
-            <main class="mt-24" >
+                <!-- fin flash info -->
 {{-- <x-shared.chat-bulle/> --}}
                 {{ $slot }}
             </main>

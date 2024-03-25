@@ -10,6 +10,9 @@
     <hr >
     <div class=" text-center my-3">
         <span class=" text-2xl font-bold font-sans capitalize">{{ $ticket->numero }}</span>
+        <div class="flex mx-auto justify-center text-lg text-center">
+           {{ $ticket->date }}
+        </div>
     </div>
 
     <div class=" flex mx-auto justify-center">

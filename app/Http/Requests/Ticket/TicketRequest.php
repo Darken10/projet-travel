@@ -23,6 +23,7 @@ class TicketRequest extends FormRequest
     {
         return [
             'condition' =>['required'],
+            'date'=>['date']
         ];
     }
 }

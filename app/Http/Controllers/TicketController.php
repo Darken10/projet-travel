@@ -50,10 +50,13 @@ class TicketController extends Controller
             $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
             $data['QRUrl'] = './tickets/qr/' . $qrName;
         }
+        else{
+            return back()->with('error','votre payment a echouer veuiller le ressayez svp ');
+        }
 
         $payer = Payer::create($data);
         if(!$payer){
-            throw new Exception("Une erreur inconnu arriver lors du payment");
+            return back()->with('error',"Une erreur inconnu arriver lors du payment. contacter un administrateur de Travel pour quil regle ce probleme");
         }
         else{
             $ticket->statut_id = 5;
@@ -62,6 +65,8 @@ class TicketController extends Controller
                 'payer'=>$payer,
             ]);
         }
+        return back()->with('error',"Une erreur inconnu est survenue");
+
     }
 
 

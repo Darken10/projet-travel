@@ -124,19 +124,35 @@ class VoyageController extends Controller
         $n = Ticket::query()->whereIn('voyage_id',$a)->get();
         $annee = new DateTime();
         
-        $numeroTk = 'Tk'.$annee->format('y').'-'.$voyage->compagnie_id.'-'.count($n)+1;
+        $numeroTk = 'Tk'.$annee->format('y').'-'.$this->completerParZero($voyage->compagnie_id).'-'.$this->completerParZero(count($n)+1);
         $data = [
+            'date'=>$request->input('date'),
             'user_id'=>$request->user()->id,
             'voyage_id' => $voyage->id,
             'numero' => $numeroTk,
             'code'=> count($n)+1,
             'statut_id' => 11
         ] ;
-        Ticket::create($data);
         
-        return Redirect::route('ticket.mes-tickets')->with('status', 'profile-updated');
+        if(Ticket::create($data))
+            return Redirect::route('ticket.mes-tickets')->with('success', 'Votre ticket a ete mise dans votre panier avec sucesse');
+        
+        return back()->with('error','Desolé, nous n\'avons pas pu enregister votre ticket. Veuillez ressayez SVP');   
+    }
 
-        
+    private function completerParZero(int $a=0):string{
+        if($a>=0 && $a<=9){
+            return '000'.$a;
+        }
+        else if($a>=10 && $a<=99){
+            return '00'.$a;
+        }
+        else if($a>=100 && $a<=999){
+            return '0'.$a;
+        }
+        else{
+            return $a;
+        }
     }
 
 }

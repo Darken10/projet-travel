@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class PayerFormRequest extends FormRequest
 {
     /**
+     * 
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -22,8 +23,8 @@ class PayerFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'numero'=>['required','numeric','min:8',],
-            'otp'=>['required','numeric','min:6'],
+            'numero'=>['required','numeric','digits_between:8,14',],
+            'otp'=>['required','numeric','digits:6'],
         ];
     }
 }

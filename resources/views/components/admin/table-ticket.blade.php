@@ -52,8 +52,11 @@
                                 <div class="text-left">{{ $tk->user->email }}</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
-                                <div class="text-left font-medium text-green-500">{{ $tk->statut->name }}</div>
+                                <div class="text-left font-medium @switch((int)$tk->statut_id) @case(12) text-green-500 @break @case(5) text-blue-500 @break @case(10) text-red-500 @break @case(3) text-yellow-500 @break @default text-gray-700 @endswitch">
+                                    {{ $tk->statut->name }}
+                                </div>
                             </td>
+                            
 
                             <td class="p-2 whitespace-nowrap">
 

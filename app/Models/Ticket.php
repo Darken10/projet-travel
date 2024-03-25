@@ -21,6 +21,7 @@ class Ticket extends Model
         'voyage_id',
         'numero',
         'code',
+        'date',
         'statut_id',
     ];
 

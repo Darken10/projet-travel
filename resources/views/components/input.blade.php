@@ -5,10 +5,12 @@
     'class' => '',
     'inputClass' => '',
     'placeholder' => '',
-    'value'=> '',
+    'value' => '',
     'required'=> False,
     'label' => '',
-    'help' => ''
+    'help' => '',
+    'min'=>'',
+    'max'=>'',
 
 ])
 
@@ -23,7 +25,9 @@
     id="{{ $name }}"
     name="{{ $name }}"
     placeholder="{{ $placeholder }}"
-    value="{{ old($name,$value) }}"
+    value="{{ $value=='' ? $value : old($name,$value) }}"
+    min = "{{ $min }}"
+    max = "{{ $max }}"
     {{ $required ? 'required' : '' }}
     >   
     @error ($name)

@@ -1,3 +1,8 @@
+
+@php
+    $date = Carbon\Carbon::today()->format('Y-m-d');
+    $max = Carbon\Carbon::today()->add(1,'month')->format('Y-m-d');
+@endphp
 <div class=" max-w-md flex w-auto mx-auto justify-center bg-white shadow-xl border-t-4 border-violet-700 rounded-lg ">
     <div class="block">
         <div class="  ">
@@ -24,12 +29,16 @@
                 </tr>
                 <tr>
                     <td class=" px-2 font-semibold flex justify-end">Heure Arriver :</td>
-                    <td class="px-2 ">STAF</td>
+                    <td class="px-2 ">{{ $voyage->heureArriver() }}</td>
                 </tr>
             </table>
 
-            <form action="" method="post">
+            <form action="" method="post" class=" mt-4 border-t-2 border-teal-600">
                 @csrf
+            
+                <div class="mt-2">
+                    <x-input label="La date du voyage" name="date" type="date" :value="$date" :min="$date" :$max />
+                </div>
                 <div class="flex mx-auto justify-end my-2">
                     <div class="">
                         <input type="checkbox" name="condition" id="condition">
