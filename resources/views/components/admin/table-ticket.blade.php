@@ -36,11 +36,14 @@
                     </tr>
                 </thead>
                 <tbody class="text-sm divide-y divide-gray-100">
-                    
+                    @php
+                        $prixTotale = 0;
+                        $i = 1;
+                    @endphp
                     @foreach ($ticket as $tk)
                         <tr>
                             <td class="p-2 whitespace-nowrap">
-                                <div class="text-lg text-center">{{ $tk->code }}</div>
+                                <div class="text-lg text-center">{{ $i }}</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -64,6 +67,10 @@
                             </td>
                             
                         </tr>
+                        @php
+                            $prixTotale += $tk->prix();
+                            $i++;
+                        @endphp
                     @endforeach
                     
                 </tbody>
@@ -81,7 +88,7 @@
                             Total :
                         </td>
                         <td class="py-2">
-                            <span class=" font-semibold">1000</span> F CFA
+                            <span class=" font-semibold">{{ $prixTotale ?? 0 }}</span> F CFA
                         </td>
                     </tr>
                 </tfoot>

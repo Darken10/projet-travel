@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
-use App\Models\Voyage\Voyage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
 use App\Models\Ticket\Payer;
-use chillerlan\QRCode\Output\QRGdImagePNG;
 use chillerlan\QRCode\QRCode;
-use QRimage;
 
 class TicketController extends Controller
 {
@@ -135,7 +130,18 @@ class Payement
 
 
 class QRCodeGenerate {
-    
+    private $QRCode;
+    function __construct(private Ticket $ticket){
+        
+        
+    }
+
+    function imagePng(){
+
+    }
+    function imageSvg(){
+        
+    }
 }
 
 class PdfGenerate{

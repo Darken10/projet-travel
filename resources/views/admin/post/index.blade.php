@@ -244,12 +244,6 @@
 </div>
 
 
-
-
-
-<script>
-
-</script>
 <script src="{{ asset('node_modules/flowbite/flowbite.js') }}"></script>
 
 </x-admin.layout>

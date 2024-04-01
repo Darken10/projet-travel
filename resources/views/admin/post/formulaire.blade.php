@@ -2,37 +2,28 @@
 
     <link rel="stylesheet" href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}">
 
-    <div class="jumbotron">
-        <h1 class="display-3">{{$post->exists ? 'Modifier le Pub' : 'Créer un Pub'}}</h1>
+    <div class=" bg-emerald-600 py-3 px-4 rounded-t-md ">
+        <h1 class=" flex ml-6 text-3xl text-white font-bold">{{$post->exists ? 'Modifier le Post' : 'Créer un Post'}}</h1>
     </div>
 
+    <div class=" bg-gray-50 p-8 rounded-b-md shadow-xl">
+        <form class="mb-5 " action="{{ $post->exists ? route('admin.post.update',$post) : route('admin.post.store') }}" enctype="multipart/form-data" method="post">
+            @csrf
+            @method($post->exists ? 'PUT' : 'POST')
 
-    <form class="mb-5 " action="{{ $post->exists ? route('admin.post.update',$post) : route('admin.post.store') }}" enctype="multipart/form-data" method="post">
-        @csrf
-        @method($post->exists ? 'PUT' : 'POST')
+            <x-admin.input label="Titre : " class="mt-4"  name="title" placeholder="Un Titre " :value="$post->title" required />
+            <x-admin.input type="textarea" class="mt-4" label="Contenu de l'article" name="content" placeholder="contenu de l'article " :value="$post->content"  />
+            <x-admin.select label="Etiquettes " class="mt-4"  name="tags" :options="App\Models\Post\Tag::pluck('name','id')" :value="$post->tags->pluck('id')" multiple  />
 
-        <div class="row">
-            <x-admin.input label="Titre : "  name="title" placeholder="Un Titre " :value="$post->title" required />
-        </div>
-        <div class="row">
-            <x-admin.input type="textarea" label="Contenu de l'article" name="content" placeholder="contenu de l'article " :value="$post->content"  />
-        </div>
+            <img src="{{ $post->image }}">
+            <br>
+            <x-admin.input label="Changer de photo : " name="image" type="file"  />
 
-        
-        <x-admin.select label="Etiquettes "  name="tags" :options="App\Models\Post\Tag::pluck('name','id')" :value="$post->tags->pluck('id')" multiple />
-    
-
-        <img src="{{ $post->image }}">
-        <br>
-        <x-admin.input label="Changer de photo : " name="image" type="file"  />
- 
-
-        
-
-        <div class="mt-5">
-            <button type="submit" class="btn btn-primary">{{ $post->exists ? 'Modifier' : 'Créer' }}</button>
-        </div>
-    </form>
+            <div class="mt-5 flex justify-end">
+                <x-admin.btn-primary type="submit" >{{ $post->exists ? 'Enregritre' : 'Creer le post' }}</x-admin.btn-primary>
+            </div>
+        </form>
+    </div>
 
 
     <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
@@ -60,9 +51,7 @@
                         console.log("tout cest tres bien passe")
                         opt.attr('value',code.tag.id)
                         console.log(opt.attr('value'));
-                        
                     },
-                    
                     error :function (resultat,status,erreur){
                         console.log('une erreur arriver')
                         console.log(erreur)

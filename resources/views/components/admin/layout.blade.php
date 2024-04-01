@@ -9,7 +9,6 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
 
 
@@ -18,7 +17,7 @@
 
 {{-- <linkrel="stylesheet"href='asset('bootstrap-5/css/bootstrap.min.css') '>--}}
     </head>
-    <body class="font-sans antialiased h-full">
+    <body class="font-sans antialiased h-full" >
         
         @include('admin.shared._navbar') 
 
@@ -39,7 +38,7 @@
                 @endif
             <!-- fin flash info -->
 
-            <main >
+            <main  id="app">
                 {{ $slot }}
             </main>
         </div>

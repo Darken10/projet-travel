@@ -1,7 +1,8 @@
 <x-admin.layout>
-    <div class="jumbotron">
-        <h1 class="display-3">{{$tag->exists ? 'Modifier Une Etiquette' : 'Créer une Etiquete'}}</h1>
+    <div class=" bg-emerald-600 py-3 px-4 rounded-t-md ">
+        <h1 class=" flex ml-6 text-3xl text-white font-bold">{{$tag->exists ? 'Modifier Une Etiquette' : 'Créer une Etiquete'}}</h1>
     </div>
+
 
 
     <form class="mb-5 " action="{{ $tag->exists ? route('admin.tag.update',$tag) : route('admin.tag.store') }}" method="POST">
@@ -13,7 +14,7 @@
         </div>
 
         <div class="mt-5">
-            <button type="submit" class="btn btn-primary">{{ $tag->exists ? 'Modifier' : 'Créer' }}</button>
+            <x-admin.btn-primary type="submit">{{ $tag->exists ? 'Sauvegarder' : 'Créer l\'Ediquette' }}</x-admin.btn-primary>
         </div>
     </form>
 

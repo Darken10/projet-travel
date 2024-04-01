@@ -1,46 +1,52 @@
 @props([
+    'disabled' => false,
     'name'=> '',
     'type'=>'text',
     'class' => '',
+    'inputClass' => '',
     'placeholder' => '',
-    'value'=> '',
+    'value' => '',
     'required'=> False,
     'label' => '',
-    'help' => ''
-
+    'help' => '',
+    'min'=>'',
+    'max'=>'',
 
 ])
 
-<div @class(['mb-3 form-group', $class])>
-    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 
+<div {{ $attributes->merge(['class' => $class]) }}>
+    <labe class="block font-medium text-sm text-gray-700 dark:text-gray-300">
+        {{ $label }}
+    </label>
+    
     @if ($type == "textarea")
         <textarea
-            class="form-control @error($name) is-invalid @enderror"
+            class ="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full {{ $inputClass }} "
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
             {{ $required ? 'required' : '' }}
             >{{ old($name,$value) }}</textarea>
     @else
-        <input
-            type="{{ $type }}"
-            class="form-control @error($name) is-invalid @enderror"
-            id="{{ $name }}"
-            name="{{ $name }}"
-            placeholder="{{ $placeholder }}"
-            value="{{ old($name,$value) }}"
-            {{ $required ? 'required' : '' }}
-        >
+    <input 
+        class ="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full {{ $inputClass }} "
+        {{ $disabled ? 'disabled' : '' }} 
+        type="{{ $type }}"
+        id="{{ $name }}"
+        name="{{ $name }}"
+        placeholder="{{ $placeholder }}"
+        value="{{ $value=='' ? $value : old($name,$value) }}"
+        min = "{{ $min }}"
+        max = "{{ $max }}"
+        {{ $required ? 'required' : '' }}
+    > 
     @endif
 
-
-    @error($name)
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
+    @error ($name)
+    <div class="text-sm text-red-600 dark:text-red-400 space-y-1">
+        {{ $message }}
+    </div>
     @enderror
-    @if ($help != '')
-        <small id="helpId" class="form-text text-muted">{{ $help }}</small>
-    @endif
+ 
 </div>

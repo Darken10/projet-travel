@@ -7,3 +7,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+const app = document.querySelector('#app')
+const modal=''
+
+
