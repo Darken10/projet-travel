@@ -43,4 +43,13 @@ class Ligne extends Model
         return $this->hasMany(Course::class);
     }
 
+    function departName():string{
+        return $this->depart?->name;
+    }
+    function destinationName():string{
+        return $this->destination?->name;
+    }
+
+
+
 }

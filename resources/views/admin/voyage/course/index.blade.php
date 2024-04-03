@@ -1,16 +1,10 @@
 <x-admin.layout>
 
 
-  
-
-
-
-
-
 <!-- Table -->
 <div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 py-4">
     <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-        <h2 class="font-semibold text-gray-800 capitalize flex justify-between items-center">Les Courses</span> </h2>
+        <h2 class="font-semibold text-2xl text-gray-800 capitalize flex justify-between items-center">Les Courses</span> </h2>
         <a href="{{ route('admin.voyage.course.create') }}" class=" bg-green-500 text-white font-semibold mx-2  px-2  flex no-underline text-center rounded-lg">
             <span class=" flex text-white text-5xl pl-2">+</span>
             <span class=" flex justify-center align-middle content-center items-center ml-1 pr-2">Ajouter</span>
@@ -23,6 +17,9 @@
             <table class="table-auto w-full">
                 <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                     <tr>
+                        <th class="p-2 whitespace-nowrap">
+                            <div class="font-semibold text-center">N°</div>
+                        </th>
                         <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-center">Depart</div>
                         </th>
@@ -52,6 +49,9 @@
                     @endphp
                     @foreach ($courses as $course)
                         <tr @class([' bg-gray-200'=>$i % 2 == 1 ])>
+                            <td class="p-2 whitespace-nowrap" >
+                                {{ $i+1 }}
+                            </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div>{{ $course->ligne->depart->name }} ({{ $course->ligne->depart->pays->name }})</div>
                             </td>
@@ -60,7 +60,7 @@
                             </td>
                             <td class="p-2 whitespace-nowrap">
 
-                                <div>{{ $course->ligne->distance ?? 0 }} km</div>
+                                <div>{{ $course?->ligne?->distance ?? 0 }} km</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div>{{ $course->heure_depart }}</div>
@@ -216,7 +216,7 @@
                             Nombres :
                         </td>
                         <td class="py-2">
-                            <span class=" font-semibold">{{ count($courses) }}</span> Lignes
+                            <span class=" font-semibold">{{ count($courses) }}</span> Courses
                         </td>
                     </tr>
                     
@@ -232,7 +232,9 @@
     
 </div>
 
-
+<div class=" mt-4">
+    {{ $courses->links() }}
+</div>
 
 
 

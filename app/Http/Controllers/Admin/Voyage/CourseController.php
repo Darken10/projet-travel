@@ -45,20 +45,30 @@ class CourseController extends Controller
         $ligne = Ligne::query()->where('depart_id', $data['depart_id'])->Where('destination_id', $data['destination_id'])->first();
         if ($ligne === null) {
             $ligne = Ligne::create($data);
+            
         }
         $data['ligne_id'] = $ligne->id;
 
         //dd($data);
-        $course = Course::create($data);
-        $data = [
-            'admin_id' => $request->user()->id,
-            'course_id' => $course->id,
-            'compagnie_id' => $request->user()->compagnie->id,
-            'statut_id' => 1
-        ];
+       /* if($course = Course::create($data)){
+            $data = [
+                'admin_id' => $request->user()->id,
+                'course_id' => $course->id,
+                'compagnie_id' => $request->user()->compagnie->id,
+                'statut_id' => 1
+            ];
+            if($voyage = Voyage::create($data)){
+                return to_route('admin.voyage.course.index')->with('success', 'Votre voyage bien été creer');
+            }
 
-        Voyage::create($data);
-        return to_route('admin.voyage.course.index')->with('success', 'Votre voyage bien été creer');
+            
+        }*/
+        if ($course = Course::create($data)){
+            return to_route('admin.voyage.course.index')->with('success', 'Votre Course bien été creer');
+        }
+        return back()->with('error', 'Une erreure inconnu est survenue');
+
+
     }
 
 
@@ -79,6 +89,7 @@ class CourseController extends Controller
     public function update(CourseFormRequest $request, Course $course)
     {
         $data = $request->validated();
+        dd($data);
         $data['user_id'] = Auth::user()->id;
         $ligne = Ligne::query()->where('depart_id', $data['depart_id'])->Where('destination_id', $data['destination_id'])->first();
 
@@ -88,7 +99,7 @@ class CourseController extends Controller
         $data['ligne_id'] = $ligne->id;
         $course->update($data);
 
-        return to_route('admin.voyage.course.index')->with('success', 'Votre article bien été mis a jours');
+        return to_route('admin.voyage.course.index')->with('success', "Votre courses {{ $ligne->departName() }} - {{ $ligne->destinationName }}  {{ $ligne->heure_depart }} bien été mis a jours");
     }
 
     /**

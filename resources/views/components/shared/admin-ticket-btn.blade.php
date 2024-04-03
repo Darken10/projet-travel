@@ -108,48 +108,9 @@
 
     
     
-    <script>
-        /*modal = document.querySelector("#authentication-modal-{{ $ticket->id }}")
-        btn_valider_{{ $ticket->id }} = document.querySelector("#btn-valider-{{ $ticket->id }}")
-        btn_valider_{{ $ticket->id }}.addEventListener('click',(e)=>{
-            app.classList.toggle('modale')
-        })
-*/
-       
-
-// set the modal menu element
-const $targetEl = document.getElementById('authentication-modal-{{ $ticket->id }}');
-
-// options with default values
-const options = {
-    placement: 'bottom-right',
-    backdrop: 'dynamic',
-    backdropClasses:
-        'bg-gray-900/100 dark:bg-gray-900/80 fixed inset-0 z-40',
-    closable: true,
-    onHide: () => {
-        console.log('modal is hidden');
-    },
-    onShow: () => {
-        console.log('modal is shown');
-    },
-    onToggle: () => {
-        console.log('modal has been toggled');
-    },
-};
-
-// instance options object
-const instanceOptions = {
-  id: 'authentication-modal-{{ $ticket->id }}',
-  override: true
-};
-
-import { Modal } from 'flowbite';
-
-/*
- * $targetEl: required
- * options: optional
- */
-const modal = new Modal($targetEl, options, instanceOptions);
-        
-    </script>
+{{-- Asombrire le back --}}
+<script src="{{ asset('node_modules/flowbite/flowbite.min.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+<script>
+    Asombrire('popup-modal{{ $ticket->id }}')
+</script>

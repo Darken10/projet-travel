@@ -42,10 +42,13 @@ class LigneController extends Controller
          $data['user_id']=Auth::user()->id;
          $ligne = Ligne::query()->where('depart_id',$data['depart_id'])->where('destination_id',$data['destination_id'])->get();
          if(!$ligne->isEmpty()){
-            return to_route('admin.voyage.ligne.index')->with('warning','La ligne existe deja');
+            return to_route('admin.voyage.ligne.index')->with('warning','La ligne existe déja.Nous ne pouvont pas la récréer.');
         }
-         Ligne::create($data);
-         return to_route('admin.voyage.ligne.index')->with('success','Votre article bien été creer');
+         if($ligne = Ligne::create($data)){
+             return to_route('admin.voyage.ligne.index')->with('success',"La ligne {{ $ligne->departName() }} - {{ $ligne->destinationName() }} bien été creer");
+         }
+        
+        return back()->with('error',"Désolé une erreur inconnue est survenue lors du traitment des données");
      }
  
  
@@ -54,7 +57,6 @@ class LigneController extends Controller
       */
      public function edit(Ligne $ligne)
      {
-         //$ligne = new Ligne();
          return view('admin.voyage.ligne.formulaire',[
              'ligne'=> $ligne,
          ]);
@@ -67,8 +69,15 @@ class LigneController extends Controller
      {
          $data = $request->validated();
          $data['user_id'] = Auth::user()->id;
-         $ligne->update($data);
-         return to_route('admin.voyage.ligne.index')->with('success','Votre article bien été mis a jours');
+         $exDep  = $ligne->departName();
+         $exDest = $ligne->destinationName();   
+         if($ligne->update($data)){
+            return to_route('admin.voyage.ligne.index')->with('success',"La ligne {{ $exDep }} - {{ $exDest }} a bien été mise à jours");
+         }
+
+        return back()->with('error',"Désolé une erreur inconnue est survenue lors du traitment des données");
+
+         
      }
  
      /**
@@ -76,15 +85,16 @@ class LigneController extends Controller
       */
      public function destroy(Ligne $ligne)
      {
-         $ligne->delete();
-         return to_route('admin.voyage.ligne.index')->with('success','Votre article bien été supprimer');
+         if($ligne->delete()){
+            return to_route('admin.voyage.ligne.index')->with('success','Votre article bien été supprimer');
+         }
+         return back()->with('error',"Désolé une erreur inconnue est survenue lors du traitment des données");
  
      }
  
  
      function likeListLigne(Ligne $ligne)
      {
-         
          return view('admin.voyage.ligne.like.list', [
              'likes' => $ligne->likes()->latest()->paginate(50),
          ]);

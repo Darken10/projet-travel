@@ -5,7 +5,7 @@
 <!-- Table -->
 <div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 py-4">
     <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-        <h2 class="font-semibold text-gray-800 capitalize flex justify-between items-center">Les Lignes</span> </h2>
+        <h2 class="font-semibold text-gray-800 capitalize flex justify-between items-center text-3xl">Les Lignes</span> </h2>
         <a href="{{ route('admin.voyage.ligne.create') }}" class=" bg-green-500 text-white font-semibold mx-2  px-2  flex no-underline text-center rounded-lg">
             <span class=" flex text-white text-5xl pl-2">+</span>
             <span class=" flex justify-center align-middle content-center items-center ml-1 pr-2">Ajouter</span>
@@ -27,8 +27,6 @@
                         <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-left">Distance</div>
                         </th>
-                        
-                        
                         <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-left flex justify-center">Action</div>
                         </th>
@@ -137,6 +135,11 @@
                             $nbLikes = 0;
                             $nbComments =0;
                         @endphp
+
+
+
+
+
                     @endforeach
                     
                 </tbody>
@@ -162,7 +165,10 @@
     
 </div>
 
-
-
+<script src="{{ asset('node_modules/flowbite/flowbite.min.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+<script>
+    Asombrire('medium-modal{{ $ligne->id }}')
+</script>
 
 </x-admin.layout>
