@@ -1,0 +1,1 @@
+2024-04-05 09:35:21: imagepng(/home/darken/pro/storage/public/Qrcodes/qrcode_Tk24-1-3_660fc5d9428b6.png): Failed to open stream: No such file or directory

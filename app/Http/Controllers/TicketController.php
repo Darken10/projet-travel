@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\Ticket\Payer;
+use App\Libraries\QRCodeGenerate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
-use App\Models\Ticket\Payer;
-use chillerlan\QRCode\QRCode;
 
 class TicketController extends Controller
 {
@@ -39,29 +39,29 @@ class TicketController extends Controller
         $isPayer = $payment->payement();
         //dd($isPayer);
         if ($isPayer) {
-            $pdfName = uniqid("pdf_{$ticket->numero}_") . '.pdf';
-            $qrName = uniqid("qr_{$ticket->numero}_") . '.png';
-            $data['code'] = $payment->getCodeTransfert();
-            $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
-            $data['QRUrl'] = './tickets/qr/' . $qrName;
-        }
-        else{
-            return back()->with('error','votre payment a echouer veuiller le ressayez svp ');
+            $qr = new QRCodeGenerate($ticket);
+            if ($qr->imagePng()){
+                $qrName = $qr->geteFilePath();
+                $pdfName = uniqid("pdf_{$ticket->numero}_") . '.pdf';
+                $data['code'] = $payment->getCodeTransfert();
+                $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
+                $data['QRUrl'] = './tickets/qr/' . $qrName;
+            }
+        } else {
+            return back()->with('error', 'votre payment a echouer veuiller le ressayez svp ');
         }
 
         $payer = Payer::create($data);
-        if(!$payer){
-            return back()->with('error',"Une erreur inconnu arriver lors du payment. contacter un administrateur de Travel pour quil regle ce probleme");
-        }
-        else{
+        if (!$payer) {
+            return back()->with('error', "Une erreur inconnu arriver lors du payment. contacter un administrateur de Travel pour quil regle ce probleme");
+        } else {
             $ticket->statut_id = 5;
             $ticket->save();
-            return to_route('ticket.payer_show',[
-                'payer'=>$payer,
+            return to_route('ticket.payer_show', [
+                'payer' => $payer,
             ]);
         }
-        return back()->with('error',"Une erreur inconnu est survenue");
-
+        return back()->with('error', "Une erreur inconnu est survenue");
     }
 
 
@@ -83,16 +83,15 @@ class TicketController extends Controller
     }
 
 
-    function payer_show(Payer $payer){
+    function payer_show(Payer $payer)
+    {
 
-        $Qr = new QRCode();
-        
-        $QRCode = $Qr->render('bonjours');
-        return view('ticket.payer_show',[
-            'payer'=>$payer,
-            'QRCode'=>$QRCode,
+
+        return view('ticket.payer_show', [
+            'payer' => $payer,
         ]);
     }
+
 
 }
 
@@ -123,27 +122,11 @@ class Payement
         return $this->numero == static::$NUMERO && $this->otp == static::$OTP;
     }
 
-    function getCodeTransfert():string{
-        return $this->codeTransfert; 
+    function getCodeTransfert(): string
+    {
+        return $this->codeTransfert;
     }
 }
 
 
-class QRCodeGenerate {
-    private $QRCode;
-    function __construct(private Ticket $ticket){
-        
-        
-    }
 
-    function imagePng(){
-
-    }
-    function imageSvg(){
-        
-    }
-}
-
-class PdfGenerate{
-
-}

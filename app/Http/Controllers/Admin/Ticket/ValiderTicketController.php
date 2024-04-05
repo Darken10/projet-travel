@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin\Ticket;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Libraries\QRCodeGenerate;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Ticket\ValidationTicketFormRequest;
 use App\Models\Admin\Ticket\ModifierStatutsInfo;
+use App\Http\Requests\Admin\Ticket\ValidationTicketFormRequest;
+use App\Libraries\PdfGenerate;
 
 class ValiderTicketController extends Controller
 {
@@ -60,5 +62,17 @@ class ValiderTicketController extends Controller
         }
 
         return back()->with('error', "Une erreur inconnue est survenue");
+    }
+
+    //  http://localhost:8000/ticket-validation/5/valider
+    function valider(Ticket $ticket)
+    {
+        $qr = new QRCodeGenerate($ticket);
+        //dd($qr->imagePng());
+        $pdf = new PdfGenerate($ticket,$qr);
+       
+
+        dd($pdf);
+        dd($ticket);
     }
 }

@@ -183,6 +183,12 @@ Route::prefix('/ticket-validation')->name('admin.ticket-validation.')->controlle
     Route::post('/{ticket}/suspendre','suspendre')->name('suspendre')->where([
         'ticket'=>'[0-9]+',
     ]);
+
+    /** La verificatione de l'authenticiter du ticket */
+    Route::get('/{ticket}/valider','valider')->name('valider')->where([
+        'ticket'=>'[0-9]+',
+    ]);
+
 });
 
 
@@ -206,6 +212,7 @@ Route::prefix('/conversations')->name('chat.')->controller(MessageController::cl
         'compagnie'=>'[0-9]+',
     ]);
 });
+
 
 
 
