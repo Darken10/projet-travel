@@ -43,7 +43,6 @@
                                     @if (! $post->images->isEmpty())
                                         <div class="w-24  flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-lg w-full" src="{{ asset($post->images[0]->url) }}" width="40" height="40" alt="Alex Shatov"></div>
                                     @endif
-
                                     <div class="block">
                                         <div class="font-semibold text-gray-800 ml-4 flex ">{{ Str::limit($post->title, 30, '...') }}</div>
                                         <div class=" text-gray-500 text-xs">{{ Str::limit($post->content, 50, '...') }}</div>

@@ -24,7 +24,7 @@ class PostFormRequest extends FormRequest
         return [
             'title'=>['required','min:4','string'],
             'content'=>['nullable','min:4','string'],
-            'image'=>['nullable'],
+            'images'=>['nullable'],
             'tags'=> ['nullable','array'],
             'user_id'=>['exists:users,id'],
         ];

@@ -15,9 +15,22 @@
             <x-admin.input type="textarea" class="mt-4" label="Contenu de l'article" name="content" placeholder="contenu de l'article " :value="$post->content"  />
             <x-admin.select label="Etiquettes " class="mt-4"  name="tags" :options="App\Models\Post\Tag::pluck('name','id')" :value="$post->tags->pluck('id')" multiple  />
 
-            <img src="{{ $post->image }}">
-            <br>
-            <x-admin.input label="Changer de photo : " name="image" type="file"  />
+            <x-admin.input label="Ajouter des Images : " name="images[]" type="file" multiple accept="image/*" />
+           
+            @if (! $post->images->isEmpty())
+
+            <div class=" columns-6 md:columns-3 sm:columns-2 col-auto  ">
+                @foreach ($post->images as $image)
+                    <div class="w-40 my-4  mr-2 sm:mr-3">
+                        <img class="rounded-lg w-full " src="{{ asset($image->url) }}" width="40" height="40" alt="{{ $post->title }}">
+                        <div class=" relative  -top-6 w-full">
+                            <a href="{{ route('admin.post.deleteImages',[$post,$image->id]) }}" class="bg-red-500 w-full text-red-50 font-bold rounded-b-lg relative justify-center text-center" type="submit" value="{{ $image->id }}">Supprimer</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            @endif
+
 
             <div class="mt-5 flex justify-end">
                 <x-admin.btn-primary type="submit" >{{ $post->exists ? 'Enregritre' : 'Creer le post' }}</x-admin.btn-primary>

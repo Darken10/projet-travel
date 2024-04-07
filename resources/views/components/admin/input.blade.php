@@ -12,6 +12,8 @@
     'min'=>'',
     'max'=>'',
     'hidden'=>false,
+    "multiple" => false,
+    "accept" => '',
 ])
 
 
@@ -39,7 +41,11 @@
         name="{{ $name }}"
         placeholder="{{ $placeholder }}"
         value="{{ $value=='' ? $value : old($name,$value) }}"
-        min = "{{ $min }}"
+        {{  $min =='' ? null : "min = $min " }}
+        {{  $max =='' ? null : "max = $max " }}
+        {{  ! $multiple  ? null : "multiple" }}
+        {{  $accept =='' ? null : "accept = $accept " }}
+        
         max = "{{ $max }}"
         {{ $required ? 'required' : '' }}
     > 

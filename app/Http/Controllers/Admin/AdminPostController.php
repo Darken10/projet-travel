@@ -6,7 +6,9 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostFormRequest;
+use App\Models\Post\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostController extends Controller
 {
@@ -47,7 +49,9 @@ class AdminPostController extends Controller
         if(!empty($data['tags'])){
             $post->tags()->sync($data['tags']);
         }
+        $this->registerPostImages($request,$post);
         $post->save();
+
         return to_route('admin.post.index')->with('success','Votre article bien été creer');
     }
 
@@ -70,10 +74,34 @@ class AdminPostController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
+        $this->registerPostImages($request,$post);
+        
         $post->update($data);
         return to_route('admin.post.index')->with('success','Votre article bien été mis a jours');
     }
 
+    function registerPostImages(PostFormRequest $request,Post $post){
+        if ($request->hasFile('images')){
+            foreach ($request->file('images') as $image) {
+                $img = Image::create([
+                    'url'=>Storage::url($image->store('public/post/images')),
+                ]);
+                if($img->id){
+                    $post->images()->attach($img);
+                }
+            }
+        }
+    }
+
+    function deleteImages(Post $post,Image $image){
+       if(Storage::delete($image->url) && $post->images()->detach($image) && $post->save()){
+            $image->delete();
+            return back()->with('success','Votre image a bien ete efface');
+       }
+       return back()->with('error','Desoler nous n\'avons pas put effacer votre image');
+
+
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -92,5 +120,8 @@ class AdminPostController extends Controller
             'likes' => $post->likes()->latest()->paginate(50),
         ]);
     }
+
+
+    
 
 }

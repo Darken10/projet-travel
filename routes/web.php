@@ -54,6 +54,10 @@ Route::prefix('/root')->middleware(['auth','role:root'])->name('root.')->group(f
 /** Administration  */
 Route::prefix('/admin')->middleware(['auth','role:admin'])->name('admin.')->group(function () {
     Route::resource('post', AdminPostController::class)->except(['show'])->middleware('auth');
+    Route::get('{post}/deleteImage/{image}', [AdminPostController::class,'deleteImages'])->name('post.deleteImages')->where([
+        'post' => '[0-9]+',
+        'image' => '[0-9]+',
+    ]);
     Route::resource('tag', AdminTagController::class)->except(['show'])->middleware('auth');
 
     // la gestion des voyage notament (lignes;voyages,les coures)
