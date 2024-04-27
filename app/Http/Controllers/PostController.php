@@ -12,13 +12,13 @@ use App\Models\Post\LikeReponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Post\ReponseFromRequest;
 use App\Http\Requests\Admin\Post\CommentFormRequest;
+use App\Models\Compagnie;
 
 class PostController extends Controller
 {
     function index()
     {
 
-        
         $posts = Post::latest()->paginate(12);
         return view('post.index', [
             'posts' => $posts
@@ -71,6 +71,19 @@ class PostController extends Controller
     {
         return view('post.index', [
             'posts' => $tag->posts()->latest()->paginate(12),
+        ]);
+    }
+
+    function filterByCompagnie(Compagnie $compagnie){
+        $admsId = [];
+        foreach($compagnie->admins as $adm){
+            $admsId[] = $adm->id;
+        }
+        $posts = Post::query()->whereIn('user_id',$admsId)
+        ->latest()->paginate(12);
+        
+        return view('post.index', [
+            'posts' => $posts
         ]);
     }
 
@@ -141,4 +154,6 @@ class PostController extends Controller
             'likes' => $post->likes()->latest()->paginate(50),
         ]);
     }
+
+    
 }

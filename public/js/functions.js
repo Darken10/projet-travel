@@ -1,6 +1,8 @@
+
+import { Modal } from 'flowbite';
+
 function Asombrire(idElement){
        // Asombrire()
-   //import { Modal } from 'flowbite';
 
 
     // set the modal menu element
@@ -36,5 +38,7 @@ function Asombrire(idElement){
     * options: optional
     */
     const modal = new Modal($targetEl, options, instanceOptions);
+
+    console.log(modal)
     
 }

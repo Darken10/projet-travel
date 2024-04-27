@@ -45,7 +45,7 @@ class LigneController extends Controller
             return to_route('admin.voyage.ligne.index')->with('warning','La ligne existe déja.Nous ne pouvont pas la récréer.');
         }
          if($ligne = Ligne::create($data)){
-             return to_route('admin.voyage.ligne.index')->with('success',"La ligne {{ $ligne->departName() }} - {{ $ligne->destinationName() }} bien été creer");
+             return to_route('admin.voyage.ligne.index')->with('success',"La ligne  {$ligne->departName()} - {$ligne->destinationName()} bien été creer");
          }
         
         return back()->with('error',"Désolé une erreur inconnue est survenue lors du traitment des données");
@@ -72,7 +72,7 @@ class LigneController extends Controller
          $exDep  = $ligne->departName();
          $exDest = $ligne->destinationName();   
          if($ligne->update($data)){
-            return to_route('admin.voyage.ligne.index')->with('success',"La ligne {{ $exDep }} - {{ $exDest }} a bien été mise à jours");
+            return to_route('admin.voyage.ligne.index')->with('success',"La ligne $exDep - $exDest  a bien été mise à jours");
          }
 
         return back()->with('error',"Désolé une erreur inconnue est survenue lors du traitment des données");

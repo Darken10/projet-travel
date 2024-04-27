@@ -6,9 +6,10 @@
 <div class="max-w-xl mx-auto px-4 py-4 bg-white shadow-md rounded-lg">
   <div class="py-2 flex flex-row items-center justify-between">
     <div class="flex flex-row items-center">
-      <a href="#" class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg">
+      <a href="{{ $post->user->compagnie ? route('post.filterByCompagnie',$post->user->compagnie) : '#' }}" class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg">
         <img class="rounded-full h-8 w-8 object-cover" src="{{ asset($post->user->profileUrl) }}" alt="">
         <p class="ml-2 text-base font-bold">{{ $post->user->name }}</p>
+        <p class="ml-2 text-base text-gray-500" ">{{ $post?->user?->compagnie?->sigle }}</p>
       </a>
     </div>
     <div class="flex flex-row items-center">

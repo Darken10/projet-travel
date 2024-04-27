@@ -21,5 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('/admin')->name('api.admin.')->group(function () {
     Route::post('/post/tag',[ApiTagController::class,'create'])->name('post.tag.create');
+    Route::post('/post/tag/delete',[ApiTagController::class,'delete'])->name('post.tag.delete');
+    //Route::resource('tag',ApiTagController::class);
 });
 Route::get('/post/tag',[ApiTagController::class,'index'])->name('post.tag.index');

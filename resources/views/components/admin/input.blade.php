@@ -41,6 +41,7 @@
         name="{{ $name }}"
         placeholder="{{ $placeholder }}"
         value="{{ $value=='' ? $value : old($name,$value) }}"
+        {{  $hidden =='' ? null : "hidden " }}
         {{  $min =='' ? null : "min = $min " }}
         {{  $max =='' ? null : "max = $max " }}
         {{  ! $multiple  ? null : "multiple" }}

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Libraries\Payement;
 use App\Models\Ticket\Payer;
+use App\Libraries\PDFGenerator;
 use App\Libraries\QRCodeGenerate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
 
-class TicketController extends Controller
-{
+class TicketController extends Controller{
     function acheter(TicketRequest $request, Ticket $ticket)
     {
 
@@ -39,14 +40,17 @@ class TicketController extends Controller
         $isPayer = $payment->payement();
         //dd($isPayer);
         if ($isPayer) {
-            $qr = new QRCodeGenerate($ticket);
-            if ($qr->imagePng()){
+            //$qr = new QRCodeGenerate($ticket);
+            $qr = new PDFGenerator();
+            dd($qr->genererPDFPersonnaliseAvecQRCode('http://localhost:8000/ticket-validation/5/valider',$ticket,$payment));
+            /*if ($qr->imagePng()){
                 $qrName = $qr->geteFilePath();
                 $pdfName = uniqid("pdf_{$ticket->numero}_") . '.pdf';
-                $data['code'] = $payment->getCodeTransfert();
+                $data['code'] = $payment->codeTransfert;
                 $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
-                $data['QRUrl'] = './tickets/qr/' . $qrName;
-            }
+                $data['QRUrl'] =  $qrName;
+                dd($data);
+            }*/
         } else {
             return back()->with('error', 'votre payment a echouer veuiller le ressayez svp ');
         }
@@ -85,8 +89,6 @@ class TicketController extends Controller
 
     function payer_show(Payer $payer)
     {
-
-
         return view('ticket.payer_show', [
             'payer' => $payer,
         ]);
@@ -94,39 +96,3 @@ class TicketController extends Controller
 
 
 }
-
-
-
-class Payement
-{
-
-    public static  $NUMERO = 12345678;
-    public static  $OTP = 123456;
-    private int $numero;
-    private int $otp;
-    public int $prix;
-
-    private string $moyenPayment = "orange";
-    public string $codeTransfert;
-
-
-
-    function __construct(array $credential)
-    {
-        ['numero' => $this->numero, 'otp' => $this->otp, 'prix' => $this->prix] = $credential;
-        $this->codeTransfert = uniqid('OM-');
-    }
-
-    function payement(): bool
-    {
-        return $this->numero == static::$NUMERO && $this->otp == static::$OTP;
-    }
-
-    function getCodeTransfert(): string
-    {
-        return $this->codeTransfert;
-    }
-}
-
-
-

@@ -4,6 +4,7 @@ namespace App\Models\Voyage;
 
 use App\Models\User;
 use App\Models\Root\Ville;
+use App\Models\Statut;
 use App\Models\Voyage\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,6 +38,14 @@ class Ligne extends Model
 
     function user():BelongsTo{
         return $this->belongsTo(User::class);
+    }
+
+    function statut():BelongsTo{
+        return $this->belongsTo(Statut::class);
+    }
+
+    function statutName():string{
+        return $this->statut->name;
     }
 
     function courses():HasMany{

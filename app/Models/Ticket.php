@@ -43,12 +43,16 @@ class Ticket extends Model
         return $this->belongsTo(Statut::class);
     }
 
+    function statutName():string{
+        return $this?->statut->name;
+    }
+
     function heureDepart(){
-        return $this->voyage->heureDepart();
+        return $this?->voyage->heureDepart();
     }
 
     function heureArriver(){
-        return $this->voyage->heureArriver();
+        return $this?->voyage->heureArriver();
     }
 
 
@@ -68,7 +72,7 @@ class Ticket extends Model
         return $this->voyage->prix ?? 0;
     }
 
-    function compagnie(){
+    function compagnie():Compagnie{
         return $this->voyage?->compagnie;
     }
 

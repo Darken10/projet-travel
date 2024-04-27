@@ -2,6 +2,7 @@
 
 namespace App\Models\Voyage;
 
+use App\Models\Statut;
 use App\Models\User;
 use App\Models\Voyage\Ligne;
 use App\Models\Voyage\Voyage;
@@ -18,7 +19,8 @@ class Course extends Model
         'heure_depart',
         'heure_arriver',
         'user_id',
-        'ligne_id'
+        'ligne_id',
+        'statut_id'
     ];
 
     protected $with = [
@@ -32,6 +34,14 @@ class Course extends Model
 
     function admin():BelongsTo{
         return $this->belongsTo(User::class);
+    }
+
+    function statut():BelongsTo{
+        return $this->belongsTo(Statut::class);
+    }
+
+    function statutName():string{
+        return $this->statut->name;
     }
 
     function voyages():HasMany{

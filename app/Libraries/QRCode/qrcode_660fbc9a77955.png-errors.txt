@@ -1,1 +1,0 @@
-2024-04-05 08:55:54: imagepng(Qrcode/qrcode_660fbc9a77955.png): Failed to open stream: No such file or directory

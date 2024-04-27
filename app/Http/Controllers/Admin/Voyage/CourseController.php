@@ -89,7 +89,6 @@ class CourseController extends Controller
     public function update(CourseFormRequest $request, Course $course)
     {
         $data = $request->validated();
-        dd($data);
         $data['user_id'] = Auth::user()->id;
         $ligne = Ligne::query()->where('depart_id', $data['depart_id'])->Where('destination_id', $data['destination_id'])->first();
 
@@ -97,9 +96,10 @@ class CourseController extends Controller
             $ligne = Ligne::create($data);
         }
         $data['ligne_id'] = $ligne->id;
+        $exHeureDepart = $course->heure_depart;
         $course->update($data);
 
-        return to_route('admin.voyage.course.index')->with('success', "Votre courses {{ $ligne->departName() }} - {{ $ligne->destinationName }}  {{ $ligne->heure_depart }} bien été mis a jours");
+        return to_route('admin.voyage.course.index')->with('success', "Votre courses {$ligne->departName()} - {$ligne->destinationName()}   {$exHeureDepart} bien été mis a jours");
     }
 
     /**

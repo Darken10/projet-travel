@@ -26,6 +26,7 @@ class CourseFormRequest extends FormRequest
             'destination_id' => ['exists:villes,id'],
             'heure_depart' => ['string'],
             'heure_arriver' => ['string'],
+            'statut_id'=> ['required','exists:statuts,id']
             
         ];
     }

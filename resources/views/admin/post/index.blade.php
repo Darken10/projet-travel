@@ -1,5 +1,9 @@
 <x-admin.layout>
 
+    <script type="module">
+
+
+    </script>
 
 <!-- Table -->
 <div class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200 py-4">
@@ -188,6 +192,11 @@
                             
                         </tr>
 
+
+                        <script type="module">
+                            import { Asombrire } from "http://127.0.0.1:5173/resources/js/app.js"; 
+                            Asombrire("medium-modal{{ $post->id }}")
+                        </script>
                         @php
                             $i++;
                             $nbLikes = count($post->likes) + $nbLikes;
@@ -243,6 +252,6 @@
 </div>
 
 
-<script src="{{ asset('node_modules/flowbite/flowbite.js') }}"></script>
+
 
 </x-admin.layout>

@@ -108,6 +108,7 @@ Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController
         'tag'=>'[0-9]+',
     ])->middleware('auth');
 
+    
     Route::get('/{post}/like','storeLikePost')->name('storeLikePost')->where([
         'post'=>'[0-9]+',
     ])->middleware('auth');
@@ -136,6 +137,11 @@ Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController
     Route::get('/{reponse}/reponse/like','storeLikeReponse')->name('storeLikeReponse')->where([
         'reponse'=>'[0-9]+',
     ])->middleware('auth');
+
+    Route::get('/{compagnie}/compagnie','filterByCompagnie')->name('filterByCompagnie')->where([
+        'compagnie'=>'[0-9]+',
+    ])->middleware('auth');
+
 
 });
 

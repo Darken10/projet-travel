@@ -44,6 +44,5 @@
         </div>
 
         @include('admin.shared._footer')
-        <script src="{{ asset('bootstrap-5/js/bootstrap.min.js') }}"></script>
     </body>
 </html>
