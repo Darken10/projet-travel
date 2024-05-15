@@ -6,16 +6,13 @@ use App\Models\Ticket;
 use App\Libraries\Payement;
 use App\Models\Ticket\Payer;
 use App\Libraries\PDFGenerator;
-use App\Libraries\QRCodeGenerate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
-use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller{
     function acheter(TicketRequest $request, Ticket $ticket)
     {
-        
         return to_route('ticket.payerForm', $ticket);
     }
 

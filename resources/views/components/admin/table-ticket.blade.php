@@ -29,10 +29,11 @@
                             <div class="font-semibold text-left">Statut</div>
                         </th>
                         <th class="p-2 whitespace-nowrap">
+                            <div class="font-semibold text-left">Date</div>
+                        </th>
+                        <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-left">Actions</div>
                         </th>
-                        
-                        
                     </tr>
                 </thead>
                 <tbody class="text-sm divide-y divide-gray-100">
@@ -59,10 +60,10 @@
                                     {{ $tk->statut->name }}
                                 </div>
                             </td>
-                            
-
                             <td class="p-2 whitespace-nowrap">
-
+                                <div class="text-left">{{ $tk->created_at }}</div>
+                            </td>
+                            <td class="p-2 whitespace-nowrap">
                                 <x-shared.admin-ticket-btn :ticket="$tk" />
                             </td>
                             

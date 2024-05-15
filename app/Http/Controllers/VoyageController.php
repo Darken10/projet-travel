@@ -7,11 +7,8 @@ use App\Models\Ticket;
 use App\Models\Compagnie;
 use App\Models\Root\Ville;
 use App\Models\Voyage\Ligne;
-use Illuminate\Http\Request;
 use App\Models\Voyage\Course;
 use App\Models\Voyage\Voyage;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Voyage\SearchFormRequest;
@@ -19,7 +16,7 @@ use App\Http\Requests\Voyage\SearchFormRequest;
 class VoyageController extends Controller
 {
     function index(){
-        $voyages = Voyage::orderBy('heure_depart','desc')->paginate(12);
+        $voyages = Voyage::where('statut_id',1)->orderBy('heure_depart','desc')->paginate(12);
         return view('voyage.index',[
             'voyages' => $voyages
         ]);
@@ -140,7 +137,8 @@ class VoyageController extends Controller
                     ->where('voyage_id',$data['voyage_id'])
                     ->where('autre_personne_id',null)
                     ->get()->last();
-        if(count($tk->payers) === 0){
+        
+        if($tk){
             $ticket = $tk;
         }
         else{
@@ -148,7 +146,6 @@ class VoyageController extends Controller
         }
 
         if($ticket)
-
             return Redirect::route('ticket.payerForm',$ticket);
 
 
