@@ -21,6 +21,7 @@ class Voyage extends Model
         'admin_id',
         'statut_id',
         'prix',
+        'nombre_place',
     ];
 
     protected $with = [

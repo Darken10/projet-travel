@@ -10,11 +10,12 @@ use App\Libraries\QRCodeGenerate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\PayerFormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller{
     function acheter(TicketRequest $request, Ticket $ticket)
     {
-
+        
         return to_route('ticket.payerForm', $ticket);
     }
 
@@ -41,16 +42,14 @@ class TicketController extends Controller{
         //dd($isPayer);
         if ($isPayer) {
             //$qr = new QRCodeGenerate($ticket);
-            $qr = new PDFGenerator();
-            dd($qr->genererPDFPersonnaliseAvecQRCode('http://localhost:8000/ticket-validation/5/valider',$ticket,$payment));
-            /*if ($qr->imagePng()){
-                $qrName = $qr->geteFilePath();
-                $pdfName = uniqid("pdf_{$ticket->numero}_") . '.pdf';
+            $pdf = new PDFGenerator();
+            [$nomPdf,$nomQRCode,$urlPdf,$urlQRCode,$pathPdf,$pathQRCode] = $pdf->genererPDFPersonnaliseAvecQRCode(route('admin.ticket-validation.verification',$ticket),$ticket,$payment);
+            
+            if (file_exists($pathQRCode) and file_exists($pathPdf)){
                 $data['code'] = $payment->codeTransfert;
-                $data['pdfUrl'] = './tickets/pdf/' . $pdfName;
-                $data['QRUrl'] =  $qrName;
-                dd($data);
-            }*/
+                $data['pdfUrl'] = $urlPdf;
+                $data['QRUrl'] =  $urlQRCode;
+            }
         } else {
             return back()->with('error', 'votre payment a echouer veuiller le ressayez svp ');
         }

@@ -12,6 +12,9 @@ use App\Models\Post\Tag;
 
 class PDFGenerator
 {
+
+    public const CHEMIN_DOSSIER = "public/pdf"  ;
+
     /**
      * Génère un fichier PDF personnalisé contenant un QR code à partir des données fournies.
      *
@@ -25,8 +28,8 @@ class PDFGenerator
         $nomFichierQRCodeUnique = uniqid() . '.png';
 
         // Générer l'URL publique du QR code
-        $urlQrCode = QRCodeGenerator::genererEtEnregistrerQRCode($data, $nomFichierQRCodeUnique, $cheminDossierQRCode);
-
+        [$urlQrCode,$pathQr] = QRCodeGenerator::genererEtEnregistrerQRCode($data, $nomFichierQRCodeUnique, $cheminDossierQRCode);
+        
         if (!$urlQrCode) {
             return null; // Retourner null en cas d'erreur lors de la génération du QR code
         }
@@ -48,14 +51,23 @@ class PDFGenerator
         self::ajouterLoremIpsum($pdf);
         self::ajouterPiedDePage($pdf);
 
+        $pathPdf = Storage::path( static::CHEMIN_DOSSIER."/$nomFichierPDFUnique");
         // Rendre le PDF
-        $pdfContent = $pdf->Output('S'); // Get the PDF content as string
-
+        $pdf->Output($pathPdf,dest:'F'); // Get the PDF content as string
+        $urlPdf = ltrim(Storage::url(static::CHEMIN_DOSSIER."/$nomFichierPDFUnique"),'/');
+        
         // Enregistrer le PDF dans le répertoire storage
-        Storage::put("public/pdf/$nomFichierPDFUnique", $pdfContent);
+        //Storage::put("public/pdf/$nomFichierPDFUnique", $pdfContent);
 
         // Retourner le nom du fichier PDF généré
-        return $nomFichierPDFUnique;
+        return [
+            $nomFichierPDFUnique,
+            $nomFichierQRCodeUnique,
+            $urlPdf,
+            $urlQrCode,
+            $pathPdf,
+            $pathQr,
+        ];
     }
 
 

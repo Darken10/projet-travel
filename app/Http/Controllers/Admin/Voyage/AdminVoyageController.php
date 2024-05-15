@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Voyage;
 
+
+use App\Models\Voyage\Ligne;
 use Illuminate\Http\Request;
+use App\Models\Voyage\Course;
+use App\Models\Voyage\Voyage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\Voyage\VoyageFormRequest;
-use App\Models\Voyage\Course;
-use App\Models\Voyage\Ligne;
-use App\Models\Voyage\Voyage;
 
 class AdminVoyageController extends Controller
 {
@@ -59,12 +60,17 @@ class AdminVoyageController extends Controller
             'admin_id' => $request->user()->id,
             'course_id' => $course->id,
             'compagnie_id' => $request->user()->compagnie->id,
-            'statut_id' => 1
+            'statut_id' => 1,
+            'nombre_place' => $data['nombre_place'],
         ];
         $v = Voyage::create($dataV);
 
+        if($v){
+            return to_route('admin.voyage.voyage.index')->with('success', 'Votre voyage bien été creer');
+        }else{
+            return to_route('admin.voyage.voyage.create')->with('error', 'Une erreur est survenu lors de l\'enregistrement du voyage');
+        }
  
-        return to_route('admin.voyage.voyage.index')->with('success', 'Votre voyage bien été creer');
     }
 
 
@@ -103,7 +109,8 @@ class AdminVoyageController extends Controller
             'admin_id' => $request->user()->id,
             'course_id' => $course->id,
             'compagnie_id' => $request->user()->compagnie->id,
-            'statut_id' => 1
+            'statut_id' => $data['statut_id'],
+            'nombre_place' => $data['nombre_place'],
         ];
 
         $voyage->update($dataV);

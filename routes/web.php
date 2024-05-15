@@ -166,7 +166,7 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
         'ticket'=>'[0-9]+',
     ]);
 
-    Route::post('/mes-tickets/{ticket}','acheter')->name('acheter')->where([
+    Route::post('/tickets/{ticket}','acheter')->name('acheter')->where([
         'ticket'=>'[0-9]+',
     ]);
 

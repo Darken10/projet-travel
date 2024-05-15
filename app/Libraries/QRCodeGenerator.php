@@ -35,7 +35,7 @@ class QRCodeGenerator
         if (Storage::put("$cheminDossier/$nomFichier", $qrCodeContent)) {
             // URL publique du fichier QR code
             $url = ltrim(Storage::url("$cheminDossier/$nomFichier"),'/');
-            return $url;
+            return [$url,$cheminComplet];
         }
 
         return null; // Retourner null en cas d'erreur

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Root\Ville;
 use App\Models\Ticket\Payer;
+use App\Models\AutrePersonne;
 use App\Models\Voyage\Voyage;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Ticket\ModifierStatutsInfo;
@@ -82,5 +83,9 @@ class Ticket extends Model
 
     function modifierStatutsInfos():HasMany{
         return $this->hasMany(ModifierStatutsInfo::class);
+    }
+
+    function autrePersonne():null | BelongsTo{
+        return $this->belongsTo(AutrePersonne::class);
     }
 }

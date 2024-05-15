@@ -134,9 +134,24 @@ class VoyageController extends Controller
             'statut_id' => 11
         ] ;
         
-        if(Ticket::create($data))
-            return Redirect::route('ticket.mes-tickets')->with('success', 'Votre ticket a ete mise dans votre panier avec sucesse');
-        
+
+        $tk = Ticket::query()->where('date',$data['date'])
+                    ->where('user_id',$data['user_id'])
+                    ->where('voyage_id',$data['voyage_id'])
+                    ->where('autre_personne_id',null)
+                    ->get()->last();
+        if(count($tk->payers) === 0){
+            $ticket = $tk;
+        }
+        else{
+            $ticket = Ticket::create($data);
+        }
+
+        if($ticket)
+
+            return Redirect::route('ticket.payerForm',$ticket);
+
+
         return back()->with('error','Desolé, nous n\'avons pas pu enregister votre ticket. Veuillez ressayez SVP');   
     }
 

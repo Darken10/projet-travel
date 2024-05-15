@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="flex mx-auto justify-end my-4">
-                    <x-btn-primary>Reserver</x-btn-primary>
+                    <x-btn-primary>Acheter</x-btn-primary>
                 </div>
 
             </form>

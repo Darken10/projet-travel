@@ -58,7 +58,6 @@
         </table>
     </div>
     <div class=" flex mx-auto justify-center my-4">
-        @dump($payer->QRUrl)
         <img src="{{ asset($payer->QRUrl) }}" alt="QR Code" class=" w-56">
     </div>
 

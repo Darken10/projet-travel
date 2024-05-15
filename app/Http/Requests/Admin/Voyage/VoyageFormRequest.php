@@ -30,7 +30,9 @@ class VoyageFormRequest extends FormRequest
             'course_id' => ['exists:courses,id'],
             'compagnie_id' => ['exists:compagnies,id'],
             'statut_id' => ['exists:statuts,id'],
-            'prix' => ['required','numeric'],
+            'prix' => ['required','numeric','min:0'],
+            'nombre_place' => ['required','numeric','min:0','max:500'],
+
         ];
     }
 }
