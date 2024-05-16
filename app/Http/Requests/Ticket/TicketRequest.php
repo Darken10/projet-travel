@@ -22,7 +22,8 @@ class TicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'condition' =>['required'],
+            'condition' =>['required','string'],
+            'a_bagage' =>['string'],
             'date'=>['date']
         ];
     }

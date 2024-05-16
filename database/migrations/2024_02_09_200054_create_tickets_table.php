@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\Statut;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Statut;
 use App\Models\Voyage\Voyage;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -18,10 +19,18 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Voyage::class);
-            $table->string('numero');
+            $table->integer('numero_chaise',unsigned:true);
+            $table->string('numero_tk');
             $table->integer('code',unsigned:true);
-            $table->date('date')->nullable();
-            $table->foreignIdFor(Statut::class)->default(1);
+            $table->date('date');
+            $table->string('prix',10)->nullable();
+            $table->string('moyen_payement')->nullable();
+            $table->string('numero',30)->nullable();
+            $table->string('otp',10)->nullable();
+            $table->string('pdfUrl')->unique()->nullable();
+            $table->string('QRUrl')->unique()->nullable();
+            $table->boolean('a_bagage')->default(false);
+            $table->foreignIdFor(Statut::class)->default(6);
             $table->timestamps();
         });
     }

@@ -149,15 +149,14 @@ Route::prefix('/')->name('post.')->middleware('auth')->controller(PostController
 Route::prefix('/voyage')->name('voyage.')->controller(VoyageController::class)->middleware('auth')->group(function(){
     Route::get('/','index')->name('index');
     Route::post('/','search');
-
     Route::get('/{voyage}','show')->name('show')->where([
         'voyage'=>'[0-9]+',
     ]);
-    Route::post('/{voyage}','reserver')->where([
-        'voyage'=>'[0-9]+',
-    ]);
-
 });
+Route::post('/voyage/{voyage}',[TicketController::class,'payerForm'])->where([
+    'voyage'=>'[0-9]+',
+])->name('voyage.payerForm');
+
 
 Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->middleware('auth')->group(function(){
 
@@ -166,20 +165,20 @@ Route::prefix('/ticket')->name('ticket.')->controller(TicketController::class)->
         'ticket'=>'[0-9]+',
     ]);
 
-    Route::post('/tickets/{ticket}','acheter')->name('acheter')->where([
+    Route::post('/tickets/{ticket}','payerForm')->name('payerForm')->where([
         'ticket'=>'[0-9]+',
     ]);
 
-    Route::get('/mes-tickets/payement/{ticket}','payerForm')->name('payerForm')->where([
+    /*Route::get('/mes-tickets/payement/{ticket}','payerForm')->name('payerForm')->where([
         'ticket'=>'[0-9]+',
-    ]);
+    ]);*/
 
-    Route::post('/mes-tickets/payement/{ticket}','payer')->name('payer')->where([
+    Route::post('/tickets/payement/{ticket}','payer')->name('payer')->where([
         'ticket'=>'[0-9]+',
     ]);
     
-    Route::get('/mes-ticket/payer/{payer}','payer_show')->name('payer_show')->where([
-        'payer'=>'[0-9]+',
+    Route::get('/ticket/payer/{ticket}','payer_show')->name('payer_show')->where([
+        'ticket'=>'[0-9]+',
     ]);
     
 });

@@ -1,55 +1,55 @@
-@props(['payer','QRCode'])
+@props(['ticket','QRCode'])
 
 <div class=" mx-auto justify-center sm:max-w-sm md:max-w-lg max-w-2xl w-full border-t-4 border-blue-600 bg-white shadow-lg rounded-lg mb-4">
     <div class=" text-center mb-2"> 
-        <span class="text-lg font-semibold capitalize">{{ $payer->ticket->compagnie()->sigle }} </span>
-        <span class=" text-lg capitalize italic ">({{ $payer->ticket->compagnie()->name }})</span>
+        <span class="text-lg font-semibold capitalize">{{ $ticket->compagnie()->sigle }} </span>
+        <span class=" text-lg capitalize italic ">({{ $ticket->compagnie()->name }})</span>
     </div>
     <div class="  my-2 flex mx-auto justify-center ">
         <img src="{{ asset('image/image.jpg') }}" alt="" class=" rounded" >
     </div>
     <hr >
     <div class=" text-center my-3">
-        <span class=" text-3xl font-bold font-sans capitalize">{{ $payer->ticket->numero }}</span>
+        <span class=" text-3xl font-bold font-sans capitalize">{{ $ticket->numero_tk }}</span>
     </div>
 
     <div class=" flex mx-auto justify-center">
         <table>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Depart : </td>
-                <td class="pl-3"> {{ $payer->ticket->depart()->name }}</td>
+                <td class="pl-3"> {{ $ticket->depart()->name }}</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Heure depart : </td>
-                <td class="pl-3"> {{ $payer->ticket->heureDepart() }}</td>
+                <td class="pl-3"> {{ $ticket->heureDepart() }}</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Destination : </td>
-                <td class="pl-3"> {{ $payer->ticket->destination()->name }}</td>
+                <td class="pl-3"> {{ $ticket->destination()->name }}</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Heure Arriver : </td>
-                <td class="pl-3"> {{ $payer->ticket->heureArriver() }}</td>
+                <td class="pl-3"> {{ $ticket->heureArriver() }}</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Distance : </td>
-                <td class="pl-3"> {{ $payer->ticket->distance() }} Km</td>
+                <td class="pl-3"> {{ $ticket->distance() }} Km</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Prix : </td>
-                <td class="pl-3 font-semibold"> {{ $payer->ticket?->prix() }} F CFA</td>
+                <td class="pl-3 font-semibold"> {{ $ticket?->prix() }} F CFA</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">status : </td>
-                @if ($payer->ticket->statut->name =="Reserver" or $payer->ticket->statut->name =="Pause")
-                    <td class="pl-3 font-semibold text-blue-600"> {{ $payer->ticket->statut->name }}</td>
+                @if ($ticket->statut->name =="Reserver" or $ticket->statut->name =="Pause")
+                    <td class="pl-3 font-semibold text-blue-600"> {{ $ticket->statut->name }}</td>
  
                 @else
-                    @if ($payer->ticket->statut_id == 5)
-                        <td class="pl-3 font-semibold " style="color: rgb(5, 240, 44)"> {{ $payer->ticket->statut->name }}</td>
+                    @if ($ticket->statut_id == 5)
+                        <td class="pl-3 font-semibold " style="color: rgb(5, 240, 44)"> {{ $ticket->statut->name }}</td>
                     @else
-                        @if ($payer->ticket->statut->name =="Desactiver")
-                            <td class="pl-3 font-semibold text-red-600"> {{ $payer->ticket->statut->name }}</td>
+                        @if ($ticket->statut->name =="Desactiver")
+                            <td class="pl-3 font-semibold text-red-600"> {{ $ticket->statut->name }}</td>
                         @endif
                     @endif
                 @endif
@@ -58,7 +58,14 @@
         </table>
     </div>
     <div class=" flex mx-auto justify-center my-4">
-        <img src="{{ asset($payer->QRUrl) }}" alt="QR Code" class=" w-56">
+        <img src="{{ asset($ticket->QRUrl) }}" alt="QR Code" class=" w-56">
+    </div>
+    <hr>
+    <div class=" text-blue-700 flex justify-center my-4">
+        <a href="{{ asset($ticket->pdfUrl) }}" download="true">Telechareger le Ticket (Pdf)</a>
+    </div>
+    <div class=" text-blue-700 flex justify-center ">
+        <a href="#" >Recevoir par email</a>
     </div>
 
 

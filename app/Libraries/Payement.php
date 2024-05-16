@@ -10,7 +10,7 @@ class Payement
     private int $numero;
     private int $otp;
     public int $prix;
-    public string $monais = "F CFA";
+    public string $monais = "XOF";
 
     private string $moyenPayment = "orange";
     public string $codeTransfert;
@@ -46,5 +46,8 @@ class Payement
     }
     function getMonais(): string{
         return $this->monais;
+    }
+    function getMoyenPayement():string{
+        return $this->moyenPayment;
     }
 }

@@ -70,6 +70,7 @@
                 <x-checkbox name="condition" />
                 <a href="#" class="text-blue-500">J'accepte les conditions</a>
             </div>
+
             <div class="flex  justify-end  ">
                 @csrf
                 <button class=" mx-2 my-4 px-4 py-2 border bg-blue-600 text-white capitalize rounded-lg font-semibold" type="submit">Achéter</button>

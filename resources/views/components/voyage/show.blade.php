@@ -39,6 +39,12 @@
                 <div class="mt-2">
                     <x-input label="La date du voyage" name="date" type="date" :value="$date" :min="$date" :$max />
                 </div>
+                <div class="mt-2 ">
+                    <input type="checkbox" name="a_bagage" id="a_bagage" >
+                    <span class="mx-3">
+                        J'ai des Bagages
+                    </span>
+                </div><hr>
                 <div class="flex mx-auto justify-end my-2">
                     <div class="">
                         <input type="checkbox" name="condition" id="condition">

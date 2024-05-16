@@ -24,6 +24,14 @@ class Ticket extends Model
         'code',
         'date',
         'statut_id',
+        'numero_chaise',
+        'numero_tk',
+        'prix',
+        'moyen_payement',
+        'otp',
+        'pdfUrl',
+        'QRUrl',
+        'a_bagage',
     ];
 
     protected $with = [
