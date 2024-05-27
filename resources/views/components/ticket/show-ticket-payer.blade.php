@@ -1,6 +1,6 @@
 @props(['ticket','QRCode'])
 
-<div class=" mx-auto justify-center sm:max-w-sm md:max-w-lg max-w-2xl w-full border-t-4 border-blue-600 bg-white shadow-lg rounded-lg mb-4">
+<div class=" mx-auto justify-center sm:max-w-sm md:max-w-lg max-w-3xl w-full border-t-4 border-blue-600 bg-white shadow-lg rounded-lg mb-4">
     <div class=" text-center mb-2"> 
         <span class="text-lg font-semibold capitalize">{{ $ticket->compagnie()->sigle }} </span>
         <span class=" text-lg capitalize italic ">({{ $ticket->compagnie()->name }})</span>

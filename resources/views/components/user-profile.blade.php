@@ -15,7 +15,7 @@
             <table class="flex mx-auto justify-center">
                 <tr class=" size-8  ">
                     <td class=" flex mx-auto justify-end font-semibold  ">Numero : </td>
-                    <td class=" pl-4 p-">70 87 28 51</td>
+                    <td class=" pl-4 p-">{{ request()->user()->number }}</td>
                 </tr>
                 <tr class=" size-8 ">
                     <td class=" flex mx-auto justify-end font-semibold  ">E-Mail : </td>

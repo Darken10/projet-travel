@@ -113,8 +113,8 @@ class TicketController extends Controller{
     function mesTickets()
     {
 
-        $tk = Auth::user()->tickets;
-        dd($tk->last()->payers);
+        $tk = Ticket::query()->where('user_id',Auth::user()->id)->orderBy('date','desc')->get();
+        
         return view('ticket.mes-tickets', [
             'tickets' => $tk
         ]);
@@ -136,6 +136,7 @@ class TicketController extends Controller{
         ]);
     }
 
+    // les methodes privates
 
     private function _numeroChaise(Voyage $voyage,$date):array{
         $listTk = Ticket::where("voyage_id",$voyage->id)->where('date',$date)->get();

@@ -16,6 +16,7 @@ use App\Http\Requests\Voyage\SearchFormRequest;
 class VoyageController extends Controller
 {
     function index(){
+        //$listTk = Ticket::where("voyage_id",$voyage->id)->where('date',$date)->get();
         $voyages = Voyage::where('statut_id',1)->orderBy('heure_depart','desc')->paginate(12);
         return view('voyage.index',[
             'voyages' => $voyages

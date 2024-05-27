@@ -31,18 +31,28 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'number' =>["numeric",'required'],
+            'number' =>["numeric",'required','unique:users,number'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+            'first_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:70'],
+            'cnib_recto_url' => ['required', 'string', 'max:100'],
+            'cnib_verso_url' => ['required', 'string', 'max:100'],
+            'type_document' => ['required', 'string', 'max:50'],
 
+        ]);
+        
         
         $user = User::create([
-            'name' => $request->name,
+            'name' => strtoupper($request->first_name) .' '.$request->last_name,
             'email' => $request->email,
-            'number' => $request->number,
+            'number' => (string)$request->number,
             'password' => Hash::make($request->password),
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'cnib_recto_url' => $request->cnib_recto_url,
+            'cnib_verso_url' => $request->cnib_verso_url,
+            'type_document' => $request->type_document,
         ]);
 
         event(new Registered($user));

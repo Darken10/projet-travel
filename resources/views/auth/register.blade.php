@@ -2,11 +2,39 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- First_name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="first_name" :value="__('Nom ')" />
+            <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
+            <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+        </div>
+
+        <!-- Last_ame -->
+        <div>
+            <x-input-label for="last_name" :value="__('Prenom')" />
+            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="last_name" />
+            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+        </div>
+
+        <!-- Type document -->
+        <div>
+            <x-input-label for="type_document" :value="__('Type du document')" />
+            <x-text-input id="type_document" class="block mt-1 w-full" type="text" name="type_document" :value="old('type_document')" required autofocus autocomplete="type_document" />
+            <x-input-error :messages="$errors->get('type_document')" class="mt-2" />
+        </div>
+
+        <!-- Document recto -->
+        <div>
+            <x-input-label for="cnib_recto_url" :value="__('cnib_recto_url')" />
+            <x-text-input id="cnib_recto_url" class="block mt-1 w-full" type="text" name="cnib_recto_url" :value="old('cnib_recto_url')" required autofocus autocomplete="cnib_recto_url" />
+            <x-input-error :messages="$errors->get('cnib_recto_url')" class="mt-2" />
+        </div>
+
+        <!-- Document verso -->
+        <div>
+            <x-input-label for="cnib_verso_url" :value="__('cnib_verso_url')" />
+            <x-text-input id="cnib_verso_url" class="block mt-1 w-full" type="text" name="cnib_verso_url" :value="old('cnib_verso_url')" required autofocus autocomplete="cnib_verso_url" />
+            <x-input-error :messages="$errors->get('cnib_verso_url')" class="mt-2" />
         </div>
 
         <!-- Numero -->

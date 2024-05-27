@@ -7,11 +7,12 @@
     'hide'=> False,
     'multiple'=>False,
     'disabled' => false,
+    'w_full'=> true
 ])
 
-<div @class(['w-full', $class])>
-    <labe class="block font-medium text-sm text-gray-700 dark:text-gray-300">
-        {{ $label }}
+<div @class(['w-full'=>$w_full, $class])>
+
+    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300"> {{ $label }}
     </label> 
       
     @if (!$multiple)
