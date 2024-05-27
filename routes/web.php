@@ -194,14 +194,18 @@ Route::prefix('/ticket-validation')->name('admin.ticket-validation.')->controlle
     ]);
 
     /** La verificatione de l'authenticiter du ticket */
-    Route::get('/{ticket}/valider','valider')->name('valider')->where([
+    Route::post('/{ticket}/valider','valider')->name('valider')->where([
+        'ticket'=>'[0-9]+',
+    ]);
+    
+    Route::get('/valider','validationForm')->name('validationForm');
+    Route::post('/show','show')->name('show');
+
+    Route::post('/valider','VerifierEtValider')->name('VerifierEtValider')->where([
         'ticket'=>'[0-9]+',
     ]);
 
 });
-
-
-
 
 
 /** Chat (Conversation) */

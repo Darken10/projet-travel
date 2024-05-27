@@ -24,7 +24,7 @@ class ValidationTicketFormRequest extends FormRequest
     {
         return [
             'numero'=>['required','numeric','digits_between:8,16'],
-            'code'=>['required','numeric','digits_between:6,8'],
+            'code'=>['required','numeric','digits_between:6,6'],
         ];
     }
 }

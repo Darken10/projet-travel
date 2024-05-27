@@ -32,6 +32,7 @@ class Ticket extends Model
         'pdfUrl',
         'QRUrl',
         'a_bagage',
+        'valider_at',
     ];
 
     protected $with = [

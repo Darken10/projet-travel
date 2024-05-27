@@ -28,8 +28,12 @@
                 <td class="pl-3"> {{ $ticket->destination()->name }}</td>
             </tr>
             <tr>
-                <td class="flex justify-end font-semibold capitalize">Heure Arriver : </td>
-                <td class="pl-3"> {{ $ticket->heureArriver() }}</td>
+                <td class="flex justify-end font-semibold capitalize">Numero Chaise : </td>
+                <td class="pl-3"> {{ $ticket->numero_chaise }}</td>
+            </tr>
+            <tr>
+                <td class="flex justify-end font-semibold capitalize">Heure Convocation : </td>
+                <td class="pl-3 font-semibold"> {{ (new Carbon\Carbon($ticket->date.' '.$ticket->heureDepart()))->subMinutes(30)->format("Y/m/d h:i") }}</td>
             </tr>
             <tr>
                 <td class="flex justify-end font-semibold capitalize">Distance : </td>

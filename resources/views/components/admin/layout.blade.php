@@ -44,5 +44,6 @@
         </div>
 
         @include('admin.shared._footer')
+        <script src="{{ asset('node_modules/flowbite/flowbite.min.js') }}"></script>
     </body>
 </html>

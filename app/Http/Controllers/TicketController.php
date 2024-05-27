@@ -36,7 +36,6 @@ class TicketController extends Controller{
         $data['numero_tk'] = $this->_generateNumeroTk($voyage);
         $data['code'] = $this->_completerASixZero(rand(1,999999));
         $data['statut_id'] = 6;
-
         if(key_exists('a_bagage',$data)){
             $data['a_bagage'] = true;
         }
@@ -140,7 +139,7 @@ class TicketController extends Controller{
 
     private function _numeroChaise(Voyage $voyage,$date):array{
         $listTk = Ticket::where("voyage_id",$voyage->id)->where('date',$date)->get();
-        return [$voyage->nombre_place - count($listTk), $listTk->last() ?? 1];
+        return [$voyage->nombre_place - count($listTk), $listTk->last()?->numero_chaise +1 ?? 1];
     } 
 
     private function _completerParZero(int $a=0):string{

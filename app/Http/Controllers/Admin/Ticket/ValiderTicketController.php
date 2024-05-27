@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Ticket;
 
+use Exception;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
-use App\Libraries\QRCodeGenerate;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Ticket\ModifierStatutsInfo;
 use App\Http\Requests\Admin\Ticket\ValidationTicketFormRequest;
-use App\Libraries\PdfGenerate;
 
 class ValiderTicketController extends Controller
 {
+
+
     function verifier(ValidationTicketFormRequest $resquet, Ticket $ticket)
     {
         $payer = $ticket->payers->last();
@@ -64,15 +68,54 @@ class ValiderTicketController extends Controller
         return back()->with('error', "Une erreur inconnue est survenue");
     }
 
-    //  http://localhost:8000/ticket-validation/5/valider
-    function valider(Ticket $ticket)
-    {
-        $qr = new QRCodeGenerate($ticket);
-        //dd($qr->imagePng());
-        $pdf = new PdfGenerate($ticket,$qr);
-       
+    function validationForm(){
+        return view('ticket.validatationForm');
+    }
 
-        dd($pdf);
-        dd($ticket);
+    //  http://localhost:8000/ticket-validation/5/valider
+    function valider(ValidationTicketFormRequest $request,Ticket $ticket)
+    {
+        //$qr = new QRCodeGenerate($ticket);
+        //dd($qr->imagePng());
+        //$pdf = new PdfGenerate($ticket,$qr);
+        $data = $request->validated();
+
+        $this->_valider($ticket,$data['code']);
+
+        return back()->with('error',"Le Ticket est invalide" );
+    }
+
+    function VerifierEtValider(ValidationTicketFormRequest $request){
+        $data = $request->validated();
+        $client = User::where('number',$data['numero'])->get()->last();
+        if($client!=null){
+            $ticket = Ticket::where('code',$data['code'])->where('user_id',$client->id)->get()->last();
+            if($ticket!=null){
+                $this->_valider($ticket,$data['code']);
+            }
+        }
+
+        return back()->with('error',"Le Ticket est invalide" );
+    }
+
+    private function _valider(Ticket $ticket,int $code){
+        //dd($ticket->statut_id == 7,$code==$ticket->code ,$ticket,$code);
+        if($ticket->statut_id == 7){
+            return back()->with('error',"Le Ticket n°{$ticket->numero_tk} est deja valider" );
+        } else{
+            if($code==$ticket->code ){
+            
+                try {
+                    $ticket->statut_id = 7;
+                    $ticket->valider_at = Carbon::now();
+                    $ticket->admin_id = Auth::user()->id;
+                    $ticket->save();
+                } catch (Exception $e) {
+                    throw $e;
+                }
+                return back()->with('success',"Le Ticket n°{$ticket->numero_tk} a bien ete valider" );
+            }
+        }
+       
     }
 }

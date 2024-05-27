@@ -194,8 +194,37 @@
 
 
                         <script type="module">
+                            /*
                             import { Asombrire } from "http://127.0.0.1:5173/resources/js/app.js"; 
                             Asombrire("medium-modal{{ $post->id }}")
+                            */
+
+                            /*const $targetEl= document.getElementById("medium-modal{{ $post->id }}");
+                            const options= {
+                                placement: 'bottom-right',
+                                backdrop: 'dynamic',
+                                backdropClasses:'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+                                closable: true,
+                                onHide: () => {
+                                    console.log('modal is hidden');
+                                },
+                                onShow: () => {
+                                    console.log('modal is shown');
+                                },
+                                onToggle: () => {
+                                    console.log('modal has been toggled');
+                                },
+                            };
+
+                            const instanceOptions = {
+                                id: "medium-modal{{ $post->id }}",
+                                override: true
+                            };
+
+                            const modal = new Modal($targetEl, options, instanceOptions);
+
+                            console.log(modal)
+                            */
                         </script>
                         @php
                             $i++;

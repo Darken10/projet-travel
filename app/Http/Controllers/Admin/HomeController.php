@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Ticket;
 use App\Models\Compagnie;
 use Illuminate\Http\Request;
@@ -13,13 +14,17 @@ class HomeController extends Controller
 {
     function dashbord(){
 
-        $tickets = [];
         $user_Compagnie = Auth::user()->compagnie;
         $voyages = Voyage::query()->where('compagnie_id',$user_Compagnie->id)->get();
         $a = [];
 
         foreach($voyages as $voyage){
-            $a[$voyage->id] = Ticket::where('voyage_id',$voyage->id)->where('statut_id','5')->get() ; 
+            $a[$voyage->id] = Ticket::query()
+                                    ->where('voyage_id',$voyage->id)
+                                    ->where('statut_id','5')
+                                    ->where('date',Carbon::today()->format('Y-m-d'))
+                                    ->get() ; 
+                                    
         }
        // dd($a);
         return view('admin.dashbord',[

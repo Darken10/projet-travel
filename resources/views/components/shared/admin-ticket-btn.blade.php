@@ -46,15 +46,15 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
-                    <form method="POST" class="space-y-4" action="{{ route('admin.ticket-validation.verification',$ticket) }}">
+                    <form method="POST" class="space-y-4" action="{{ route('admin.ticket-validation.valider',$ticket) }}">
                         @csrf
                         <div>
                             <label for="numero" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero</label>
-                            <input type="tel" name="numero" id="numero" placeholder="+22670707070" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  required />
+                            <input type="tel" name="numero" id="numero" placeholder="70707070" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  required />
                         </div>
                         <div>
                             <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Le Code</label>
-                            <input type="tel" name="code" id="code" placeholder="TK-100-0022-1000" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                            <input type="tel" name="code" id="code" placeholder="123456" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
                         </div>
 
 
